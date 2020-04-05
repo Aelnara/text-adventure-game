@@ -13,6 +13,7 @@ import Hint1 from 'components/Scenes/Hint1/Hint1';
 import Scene5 from 'components/Scenes/Scene5/Scene5';
 import Scene6 from 'components/Scenes/Scene6/Scene6';
 import Scene7 from 'components/Scenes/Scene7/Scene7';
+import Scene8 from 'components/Scenes/Scene8/Scene8';
 import LevelUp from 'components/Scenes/LevelUp';
 import Dead from 'components/Scenes/Dead';
 
@@ -27,6 +28,7 @@ const stage = {
   scene5: <Scene5 />,
   scene6: <Scene6 />,
   scene7: <Scene7 />,
+  scene8: <Scene8 />,
 };
 
 export default function Game() {
