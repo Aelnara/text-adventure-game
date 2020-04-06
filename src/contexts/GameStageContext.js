@@ -3,7 +3,7 @@ import React, { createContext, useState } from 'react';
 export const GameStageContext = createContext();
 
 export function GameStageProvider(props) {
-   const [gameStage, setGameStage] = useState('scene8');
+   const [gameStage, setGameStage] = useState('scene9');
    
    const changeGameStage = value => setGameStage(value);
    

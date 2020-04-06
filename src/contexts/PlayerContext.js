@@ -5,7 +5,7 @@ export const PlayerContext = createContext();
 export function PlayerProvider(props) {
    const [player, setPlayer] = useState({
       name: 'Fuckface',
-      classType: 'mage',
+      classType: 'rogue',
       currentHealth: 200,
       maxHealth: 300,
       currentXP: 0,

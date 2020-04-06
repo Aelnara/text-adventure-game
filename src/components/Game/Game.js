@@ -14,6 +14,7 @@ import Scene5 from 'components/Scenes/Scene5/Scene5';
 import Scene6 from 'components/Scenes/Scene6/Scene6';
 import Scene7 from 'components/Scenes/Scene7/Scene7';
 import Scene8 from 'components/Scenes/Scene8/Scene8';
+import Scene9 from 'components/Scenes/Scene9/Scene9';
 import LevelUp from 'components/Scenes/LevelUp';
 import Dead from 'components/Scenes/Dead';
 
@@ -29,6 +30,7 @@ const stage = {
   scene6: <Scene6 />,
   scene7: <Scene7 />,
   scene8: <Scene8 />,
+  scene9: <Scene9 />,
 };
 
 export default function Game() {
