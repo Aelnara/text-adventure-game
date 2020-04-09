@@ -28,7 +28,7 @@ export default function CharacterCreation() {
    return (
       <div className={classes.CharacterCreation}>
          <label htmlFor="name">Character name:</label>
-         <input id="name" type="text" autoComplete="off" value={player.name} maxlength="15" onChange={handleNameChange}/>
+         <input id="name" type="text" autoComplete="off" value={player.name} maxLength="15" onChange={handleNameChange}/>
          
          <label htmlFor="showType">Class:</label>
          <Select 

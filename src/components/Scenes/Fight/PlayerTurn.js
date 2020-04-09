@@ -28,11 +28,21 @@ export default function PlayerTurn(props) {
    const { enemy, changeEnemyHealth } = useContext(EnemyContext);
    const [turnStage, setTurnStage] = useState('initial')
    
+   const critDamage = player.attack + ((player.attack / 10) * 2)
+   const specialDamage = player.attack * 2
+   
    const attack = () => {
       const chance = Math.floor(Math.random() * 10)
-      if(chance < 9){
-         changeEnemyHealth(-player.attack)
-         setTurnStage('successfulHit')
+      if(chance < player.attackHitChance){
+         const critChance = Math.floor(Math.random() * 10)
+         console.log(critChance)
+         if(critChance < 3){
+            changeEnemyHealth(-critDamage)
+            setTurnStage('successfulCritHit')
+         } else {
+            changeEnemyHealth(-player.attack)
+            setTurnStage('successfulHit')
+         }
       } else {
          setTurnStage('unsuccessfulHit')
       }
@@ -40,9 +50,9 @@ export default function PlayerTurn(props) {
    
    const special = () => {
       const chance = Math.floor(Math.random() * 10)
-      if(chance < 6){
-         changeEnemyHealth(-(player.attack * 2))
-         setTurnStage('successfulHit')
+      if(chance < player.specialAttackHitChance){
+         changeEnemyHealth(-specialDamage)
+         setTurnStage('successfulSpecialHit')
       } else {
          setTurnStage('unsuccessfulHit')
       }
@@ -106,7 +116,23 @@ export default function PlayerTurn(props) {
          </>,
       successfulHit: 
          <>
-            <p>Your attack was successful and you dealt ??? damage to your enemy!</p>
+            <p>Your attack was successful and you dealt {player.attack} damage to your enemy!</p>
+            {statDisplay}
+            <ButtonContainer>
+               <Button onClick={props.passTurn} variant="contained">Continue</Button>
+            </ButtonContainer>
+         </>,
+      successfulCritHit: 
+         <>
+            <p>Your attack was successful and you dealt {critDamage} damage to your enemy! Critical Hit!</p>
+            {statDisplay}
+            <ButtonContainer>
+               <Button onClick={props.passTurn} variant="contained">Continue</Button>
+            </ButtonContainer>
+         </>,
+      successfulSpecialHit: 
+         <>
+            <p>Your attack was successful and you dealt {specialDamage} damage to your enemy!</p>
             {statDisplay}
             <ButtonContainer>
                <Button onClick={props.passTurn} variant="contained">Continue</Button>

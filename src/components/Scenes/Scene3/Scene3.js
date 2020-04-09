@@ -9,7 +9,10 @@ import Fight from 'components/Scenes/Fight/Fight';
 import TextContainer from 'components/Layouts/TextContainer';
 import ButtonContainer from 'components/Layouts/ButtonContainer';
 import Background from 'components/Layouts/Background';
-import backgroundImg from 'assets/images/environment/environment-forest-3.png';
+import backgroundImg from 'assets/images/environment/environment-forest-1.png';
+import bandit1 from 'assets/images/enemies/enemy-bandit-1.png';
+import bandit4 from 'assets/images/enemies/enemy-bandit-4.png';
+import Enemy from 'components/Layouts/Enemy';
 
 const useStyles = makeStyles(theme => ({
    Scene3: {
@@ -26,26 +29,32 @@ export default function Scene3() {
    const { setScene3Consequence } = useContext(PlayerContext);
    const { initializeEnemy } = useContext(EnemyContext);
    const [sceneStage, setSceneStage] = useState('initial')
+   const [displayFirstBandit, setDisplayFirstBandit] = useState(false)
+   const [displaySecondBandit, setDisplaySecondBandit] = useState(false)
    
    const goToScene4 = () => {
       changeGameStage('scene4')
    }
 
    const fight = () => {
-      initializeEnemy(50, 50, 300)
+      initializeEnemy(200, 50, 300)
+      setDisplayFirstBandit(true)
       setSceneStage('fight')
    }
    
    const fightWon = () => {
+      setDisplayFirstBandit(false)
       setSceneStage('fightWon')
    }
    
    const searchCampFight = () => {
       initializeEnemy(150, 40, 200)
+      setDisplaySecondBandit(true)
       setSceneStage('searchCampFight')
    }
    
    const searchCampFightWon = () => {
+      setDisplaySecondBandit(false)
       setSceneStage('searchCampFightWon')
    }
    
@@ -78,8 +87,8 @@ export default function Scene3() {
             <p>After you managed to defeat your attacker, you noticed that his camp is on the other side of the road not far from you.</p>
             <p>It might be worth checking out... but it would also be wise to get off these dangerous roads as soon as possible...</p>
             <ButtonContainer>
-               <Button onClick={moveOn} variant="contained">Move on</Button>
                <Button onClick={searchCamp} variant="contained">Search camp</Button>
+               <Button onClick={moveOn} variant="contained">Move on</Button>
             </ButtonContainer>
          </>,
       moveOn: 
@@ -101,8 +110,8 @@ export default function Scene3() {
          </>,
       searchCampAmbush:
          <>
-            <p>You took too long and another thug showed up... He looks infuriated.</p>
-            <p>He probably knew the one you killed before.</p>
+            <p>You took too long and another thug showed up... She looks infuriated.</p>
+            <p>She probably knew the one you killed before.</p>
             <ButtonContainer>
                <Button onClick={searchCampFight} variant="contained">Continue</Button>
             </ButtonContainer>
@@ -126,6 +135,8 @@ export default function Scene3() {
       <div className={classes.Scene3}>
          <AppBar />
          <Background img={backgroundImg} />
+         {displayFirstBandit && <Enemy enemyImage={bandit1} />}
+         {displaySecondBandit && <Enemy enemyImage={bandit4} />}
          <TextContainer>
             <h2>Scene 3:</h2>
             {sceneStageDisplay}

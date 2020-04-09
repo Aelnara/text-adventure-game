@@ -4,15 +4,17 @@ export const PlayerContext = createContext();
 
 export function PlayerProvider(props) {
    const [player, setPlayer] = useState({
-      name: 'Fuckface',
-      classType: 'rogue',
+      name: '',
+      classType: 'warrior',
       currentHealth: 200,
       maxHealth: 300,
       currentXP: 0,
       maxXP: 500,
       attack: 50,
+      attackHitChance: 9,
+      specialAttackHitChance: 6,
       level: 1,
-      potion: 3,
+      potion: 0,
       leveledUp: false,
       dead: false,
       choices: {
@@ -25,15 +27,21 @@ export function PlayerProvider(props) {
    const classTypes = {
       warrior: {
          health: 300,
-         attack: 50
+         attack: 50,
+         attackHitChance: 9,
+         specialAttackHitChance: 6,
       },
       mage: {
          health: 200,
-         attack: 70
+         attack: 70,
+         attackHitChance: 7,
+         specialAttackHitChance: 4,
       },
       rogue: {
          health: 250,
-         attack: 60
+         attack: 60,
+         attackHitChance: 8,
+         specialAttackHitChance: 5,
       }
    }
 
@@ -44,6 +52,30 @@ export function PlayerProvider(props) {
    });
    
    const died = () => setPlayer(player.dead = true);
+   
+   const resetPlayer = () => setPlayer(oldState => {
+      const player = {
+         name: oldState.name,
+         classType: 'warrior',
+         currentHealth: 200,
+         maxHealth: 300,
+         currentXP: 0,
+         maxXP: 500,
+         attack: 50,
+         attackHitChance: 9,
+         specialAttackHitChance: 6,
+         level: 1,
+         potion: 0,
+         leveledUp: false,
+         dead: false,
+         choices: {
+            scene2ambush: false,
+            haveSilverKey: false,
+            scene7fight: false
+         }
+      }
+      return player
+   });
    
    const setScene2Consequence = () => setPlayer(oldState => {
       const player = {...oldState};
@@ -67,6 +99,7 @@ export function PlayerProvider(props) {
       const player = {...oldState};
       player.currentHealth += value;
       if(player.currentHealth < 1){
+         player.currentHealth = 0
          player.dead = true
       }
       return player
@@ -120,19 +153,21 @@ export function PlayerProvider(props) {
    });
    
    const setClassType = value => setPlayer(oldState => {
-      const { health, attack } = classTypes[value]
+      const { health, attack, attackHitChance, specialAttackHitChance } = classTypes[value]
       const updatedPlayer = {
          ...oldState, 
          classType: value, 
          currentHealth: health,
          maxHealth: health,
-         attack
+         attack,
+         attackHitChance,
+         specialAttackHitChance
       };
       return updatedPlayer
    });
    
    return (
-      <PlayerContext.Provider value={{ player, died, changeCurrentHP, healToFull, potionHealToFull, changeMaxHP, setName, setClassType, changeXP, changePotion, changeLevelUpDisplay, setScene2Consequence, setScene3Consequence, setScene7Consequence }}>
+      <PlayerContext.Provider value={{ player, died, resetPlayer, changeCurrentHP, healToFull, potionHealToFull, changeMaxHP, setName, setClassType, changeXP, changePotion, changeLevelUpDisplay, setScene2Consequence, setScene3Consequence, setScene7Consequence }}>
          {props.children}
       </PlayerContext.Provider>
    );

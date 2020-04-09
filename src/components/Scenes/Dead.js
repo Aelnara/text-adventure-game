@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { GameStageContext } from 'contexts/GameStageContext';
+import { PlayerContext } from 'contexts/PlayerContext';
 import Button from '@material-ui/core/Button';
+import ButtonContainer from 'components/Layouts/ButtonContainer';
+import papyrus from 'assets/images/papyrus-2.png';
 
 const useStyles = makeStyles(theme => ({
-   LevelUp: {
+   Dead: {
       position: 'absolute',
       width: '100%',
       height: '100%',
@@ -22,26 +26,33 @@ const useStyles = makeStyles(theme => ({
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: '15px',
-      backgroundColor: '#7b9683',
-      '& h3': {
-         margin: '0.5rem'
+      background: `no-repeat url(${papyrus})`,
+      backgroundSize: 'contain',
+      fontFamily: 'Marck Script',
+      '& h1': {
+         fontSize: '4rem'
       }
    }
 }));
 
-export default function LevelUp() {
+export default function Dead() {
    const classes = useStyles();
+   const { changeGameStage } = useContext(GameStageContext);
+   const { resetPlayer } = useContext(PlayerContext);
    
    const restart = () => {
-      
+      resetPlayer()
+      changeGameStage('characterCreation')
    }
    
    return (
-      <div className={classes.LevelUp}>
+      <div className={classes.Dead}>
          <div className={classes.container}>
-            <h1>YOU DIED!</h1>
-            <p>What a fucking loser...</p>
-            <Button onClick={restart} variant="contained" color="primary">Restart Game</Button>
+            <h1>You Died</h1>
+            <h2>What a loser...</h2>
+            <ButtonContainer>
+               <Button onClick={restart} variant="contained" color="primary">Restart Game</Button>
+            </ButtonContainer>
          </div>
       </div>
    );

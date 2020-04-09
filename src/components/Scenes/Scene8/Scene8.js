@@ -7,7 +7,9 @@ import AppBar from 'components/AppBar/AppBar';
 import TextContainer from 'components/Layouts/TextContainer';
 import ButtonContainer from 'components/Layouts/ButtonContainer';
 import Background from 'components/Layouts/Background';
-import backgroundImg from 'assets/images/environment/environment-forest-4.png';
+import backgroundImg from 'assets/images/environment/environment-forest-3.png';
+import monk from 'assets/images/enemies/enemy-monk-1.png';
+import Enemy from 'components/Layouts/Enemy';
 
 const useStyles = makeStyles(theme => ({
    Scene8: {
@@ -38,6 +40,7 @@ export default function Scene8() {
    const { changeXP, changePotion } = useContext(PlayerContext);
    const [sceneStage, setSceneStage] = useState('initial')
    const [guess, setGuess] = useState('')
+   const [displayEnemy, setDisplayEnemy] = useState(true)
    
    const goToScene9 = () => {
       changeGameStage('scene9')
@@ -62,17 +65,19 @@ export default function Scene8() {
    }
    
    const riddlePass = () => {
+      setDisplayEnemy(false)
       setSceneStage('riddlePass')
    }
    
    const choiceMoveOn = () => {
+      setDisplayEnemy(false)
       setSceneStage('moveOn')
    }
    
    const sceneStages = {
       initial: 
          <>
-            <p>As you were wandering, you met an old monk.</p>
+            <p>As you were wandering, you met a monk.</p>
             <p>You had an interesting conversation with the monk but before you could leave he asked you if you are interested in a riddle.</p>
             <ButtonContainer>
                <Button onClick={choiceRiddle} variant="contained">Sure</Button>
@@ -84,14 +89,14 @@ export default function Scene8() {
             <p>The old monk seemed happy about your answer, and he asked you immediately:</p>
             <p>I am everywhere and a part of everyone. I am at the end of space and time and existence itself. What am I?</p>
             <ButtonContainer>
-               <input className={classes.guessInput} onChange={riddleGuess} autoComplete="off" maxlength="15" value={guess} type="text" name="name"/>
+               <input className={classes.guessInput} onChange={riddleGuess} autoComplete="off" maxLength="15" value={guess} type="text" name="name"/>
                <Button className={classes.guessButton} onClick={makeGuess} variant="contained">Guess</Button>
                <Button onClick={riddlePass} variant="contained">Pass</Button>
             </ButtonContainer>
          </>,
       correctGuess: 
          <>
-            <p>Thats right!!! The old monk cheered up like a child as you guessed it right!</p>
+            <p>Thats right!!! The monk cheered up like a child as you guessed it right!</p>
             <p>He even gave you a Health Potion in his happiness before he walked away.</p>
             <p>[You gained +1 Health Potion]</p>
             <p>[You gained +300 XP]</p>
@@ -122,6 +127,7 @@ export default function Scene8() {
       <div className={classes.Scene8}>
          <AppBar />
          <Background img={backgroundImg} />
+         {displayEnemy && <Enemy enemyImage={monk} />}
          <TextContainer>
             <h2>Scene 8:</h2>
             {sceneStageDisplay}

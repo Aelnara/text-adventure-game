@@ -22,8 +22,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Intro() {
-   const { changeGameStage } = useContext(GameStageContext);
    const classes = useStyles();
+   const { changeGameStage } = useContext(GameStageContext);
    
    const handleChange = () => {
       changeGameStage('characterCreation')

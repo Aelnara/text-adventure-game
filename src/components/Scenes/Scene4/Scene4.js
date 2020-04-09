@@ -10,6 +10,8 @@ import TextContainer from 'components/Layouts/TextContainer';
 import ButtonContainer from 'components/Layouts/ButtonContainer';
 import Background from 'components/Layouts/Background';
 import backgroundImg from 'assets/images/environment/environment-forest-3.png';
+import stranger from 'assets/images/enemies/enemy-stranger-1.png';
+import Enemy from 'components/Layouts/Enemy';
 
 const useStyles = makeStyles(theme => ({
    Scene4: {
@@ -26,18 +28,21 @@ export default function Scene4() {
    const { player, healToFull, changePotion } = useContext(PlayerContext);
    const { initializeEnemy } = useContext(EnemyContext);
    const [sceneStage, setSceneStage] = useState('initial')
+   const [displayEnemy, setDisplayEnemy] = useState(false)
    
    const goToHint1 = () => {
       changeGameStage('hint1')
    }
    
    const fight = () => {
-      initializeEnemy(50, 60, 300)
+      initializeEnemy(200, 60, 300)
+      setDisplayEnemy(true)
       setSceneStage('fight')
    }
    
    const fightWon = () => {
       changePotion(1)
+      setDisplayEnemy(false)
       setSceneStage('fightWon')
    }
    
@@ -115,6 +120,7 @@ export default function Scene4() {
       <div className={classes.Scene4}>
          <AppBar />
          <Background img={backgroundImg} />
+         {displayEnemy && <Enemy enemyImage={stranger} />}
          <TextContainer>
             <h2>Scene 4:</h2>
             {sceneStageDisplay}

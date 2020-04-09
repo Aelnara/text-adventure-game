@@ -9,7 +9,10 @@ import Fight from 'components/Scenes/Fight/Fight';
 import TextContainer from 'components/Layouts/TextContainer';
 import ButtonContainer from 'components/Layouts/ButtonContainer';
 import Background from 'components/Layouts/Background';
-import backgroundImg from 'assets/images/environment/environment-forest-4.png';
+import backgroundImg from 'assets/images/environment/environment-forest-1.png';
+import soldiers from 'assets/images/enemies/enemy-soldiers-1.png';
+import hunter from 'assets/images/enemies/enemy-hunter-1.png';
+import Enemy from 'components/Layouts/Enemy';
 
 const useStyles = makeStyles(theme => ({
    Scene7: {
@@ -26,32 +29,37 @@ export default function Scene7() {
    const { changePotion, setScene7Consequence } = useContext(PlayerContext);
    const { initializeEnemy } = useContext(EnemyContext);
    const [sceneStage, setSceneStage] = useState('initial')
+   const [displaySoldiers, setDisplaySoldiers] = useState(false)
+   const [displayHunter, setDisplayHunter] = useState(false)
    
    const goToScene8 = () => {
       changeGameStage('scene8')
    }
    
    const leftInterveneFight = () => {
-      initializeEnemy(50, 90, 400)
+      initializeEnemy(350, 90, 400)
       setSceneStage('leftInterveneFight')
    }
    
    const interveneFightWon = () => {
       setScene7Consequence()
       changePotion(1)
+      setDisplaySoldiers(false)
       setSceneStage('interveneFightWon')
    }
    
    const rightSearchFight = () => {
-      initializeEnemy(50, 70, 300)
+      initializeEnemy(250, 70, 300)
       setSceneStage('rightSearchFight')
    }
    
    const searchFightWon = () => {
+      setDisplayHunter(false)
       setSceneStage('searchFightWon')
    }
    
    const choiceLeftPath = () => {
+      setDisplaySoldiers(true)
       setSceneStage('choiceLeftPath')
    }
    
@@ -60,6 +68,7 @@ export default function Scene7() {
    }
    
    const leftMoveOn = () => {
+      setDisplaySoldiers(false)
       setSceneStage('leftMoveOn')
    }
    
@@ -73,6 +82,7 @@ export default function Scene7() {
    }
    
    const rightSearchProceed = () => {
+      setDisplayHunter(true)
       setSceneStage('rightSearchProceed')
    }
    
@@ -178,6 +188,8 @@ export default function Scene7() {
       <div className={classes.Scene7}>
          <AppBar />
          <Background img={backgroundImg} />
+         {displaySoldiers && <Enemy enemyImage={soldiers} />}
+         {displayHunter && <Enemy enemyImage={hunter} />}
          <TextContainer>
             <h2>Scene 7:</h2>
             {sceneStageDisplay}

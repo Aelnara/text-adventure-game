@@ -9,7 +9,10 @@ import Fight from 'components/Scenes/Fight/Fight';
 import TextContainer from 'components/Layouts/TextContainer';
 import ButtonContainer from 'components/Layouts/ButtonContainer';
 import Background from 'components/Layouts/Background';
-import backgroundImg from 'assets/images/environment/environment-forest-4.png';
+import backgroundImg from 'assets/images/environment/environment-forest-1.png';
+import wolf from 'assets/images/enemies/enemy-wolf-1.png';
+import boar from 'assets/images/enemies/enemy-boar-1.png';
+import Enemy from 'components/Layouts/Enemy';
 
 const useStyles = makeStyles(theme => ({
    Scene5: {
@@ -27,6 +30,8 @@ export default function Scene5() {
    const { initializeEnemy } = useContext(EnemyContext);
    const [sceneStage, setSceneStage] = useState('initial')
    const [isDisturbed, setIsDisturbed] = useState('undisturbed')
+   const [displayWolf, setDisplayWolf] = useState(false)
+   const [displayBoar, setDisplayBoar] = useState(false)
    
    const goToScene6 = () => {
       changeGameStage('scene6')
@@ -41,20 +46,24 @@ export default function Scene5() {
    }
    
    const fight = () => {
-      initializeEnemy(50, 50, 500)
+      initializeEnemy(200, 50, 500)
+      setDisplayWolf(true)
       setSceneStage('fight')
    }
    
    const fightWon = () => {
+      setDisplayWolf(false)
       setSceneStage('fightWon')
    }
    
    const boarFight = () => {
-      initializeEnemy(50, 40, 200)
+      initializeEnemy(150, 40, 200)
+      setDisplayBoar(true)
       setSceneStage('boarFight')
    }
    
    const boarFightWon = () => {
+      setDisplayBoar(false)
       setSceneStage('boarFightWon')
    }
    
@@ -172,6 +181,8 @@ export default function Scene5() {
       <div className={classes.Scene5}>
          <AppBar />
          <Background img={backgroundImg} />
+         {displayWolf && <Enemy enemyImage={wolf} />}
+         {displayBoar && <Enemy enemyImage={boar} />}
          <TextContainer>
             <h2>Scene 5:</h2>
             {sceneStageDisplay}

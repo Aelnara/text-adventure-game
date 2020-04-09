@@ -9,6 +9,8 @@ import TextContainer from 'components/Layouts/TextContainer';
 import ButtonContainer from 'components/Layouts/ButtonContainer';
 import Background from 'components/Layouts/Background';
 import backgroundImg from 'assets/images/environment/environment-forest-3.png';
+import stranger from 'assets/images/enemies/enemy-stranger-1.png';
+import Enemy from 'components/Layouts/Enemy';
 
 const useStyles = makeStyles(theme => ({
    Scene2: {
@@ -24,6 +26,7 @@ export default function Scene2() {
    const { changeGameStage } = useContext(GameStageContext);
    const { player, changeCurrentHP, changePotion, changeXP, setScene2Consequence } = useContext(PlayerContext);
    const [sceneStage, setSceneStage] = useState('initial')
+   const [displayEnemy, setDisplayEnemy] = useState(true)
    
    const goToScene3 = () => {
       changeGameStage('scene3')
@@ -36,6 +39,7 @@ export default function Scene2() {
    }
    
    const choiceAmbush = () => {
+      setDisplayEnemy(false)
       setSceneStage('ambush')
       if(player.classType === 'rogue') {
          changeXP(400)
@@ -81,6 +85,7 @@ export default function Scene2() {
       <div className={classes.Scene2}>
          <AppBar />
          <Background img={backgroundImg} />
+         {displayEnemy && <Enemy enemyImage={stranger} />}
          <TextContainer>
             <h2>Scene 2:</h2>
             {sceneStageDisplay}

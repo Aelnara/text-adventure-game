@@ -9,7 +9,9 @@ import Fight from 'components/Scenes/Fight/Fight';
 import TextContainer from 'components/Layouts/TextContainer';
 import ButtonContainer from 'components/Layouts/ButtonContainer';
 import Background from 'components/Layouts/Background';
-import backgroundImg from 'assets/images/environment/environment-forest-4.png';
+import backgroundImg from 'assets/images/environment/environment-forest-3.png';
+import giant from 'assets/images/enemies/enemy-giant-1.png';
+import Enemy from 'components/Layouts/Enemy';
 
 const useStyles = makeStyles(theme => ({
    Scene6: {
@@ -26,13 +28,14 @@ export default function Scene6() {
    const { player, healToFull, changePotion, changeXP } = useContext(PlayerContext);
    const { initializeEnemy } = useContext(EnemyContext);
    const [sceneStage, setSceneStage] = useState('initial')
+   const [displayEnemy, setDisplayEnemy] = useState(false)
    
    const goToScene7 = () => {
       changeGameStage('scene7')
    }
    
    const ruinsFight = () => {
-      initializeEnemy(50, 100, 500)
+      initializeEnemy(300, 100, 400)
       setSceneStage('fight')
    }
    
@@ -41,10 +44,12 @@ export default function Scene6() {
          changePotion(1)
          changeXP(200)
       }
+      setDisplayEnemy(false)
       setSceneStage('fightWon')
    }
    
    const choiceInvestigate = () => {
+      setDisplayEnemy(true)
       setSceneStage('investigate')
    }
    
@@ -57,6 +62,7 @@ export default function Scene6() {
    }
    
    const ruinsMoveOn = () => {
+      setDisplayEnemy(false)
       setSceneStage('ruinsMoveOn')
    }
    
@@ -161,6 +167,7 @@ export default function Scene6() {
       <div className={classes.Scene6}>
          <AppBar />
          <Background img={backgroundImg} />
+         {displayEnemy && <Enemy enemyImage={giant} />}
          <TextContainer>
             <h2>Scene 6:</h2>
             {sceneStageDisplay}

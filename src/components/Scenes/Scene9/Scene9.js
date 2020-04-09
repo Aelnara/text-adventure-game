@@ -9,7 +9,9 @@ import Fight from 'components/Scenes/Fight/Fight';
 import TextContainer from 'components/Layouts/TextContainer';
 import ButtonContainer from 'components/Layouts/ButtonContainer';
 import Background from 'components/Layouts/Background';
-import backgroundImg from 'assets/images/environment/environment-forest-4.png';
+import backgroundImg from 'assets/images/environment/environment-forest-1.png';
+import soldiers from 'assets/images/enemies/enemy-soldiers-2.png';
+import Enemy from 'components/Layouts/Enemy';
 
 const useStyles = makeStyles(theme => ({
    Scene9: {
@@ -26,17 +28,19 @@ export default function Scene9() {
    const { player, changeXP, changePotion } = useContext(PlayerContext);
    const { initializeEnemy } = useContext(EnemyContext);
    const [sceneStage, setSceneStage] = useState('initial')
+   const [displayEnemy, setDisplayEnemy] = useState(true)
    
    const goToScene10 = () => {
       changeGameStage('scene10')
    }
    
    const soldiersFight = () => {
-      initializeEnemy(50, 130, 600)
+      initializeEnemy(500, 130, 600)
       setSceneStage('soldiersFight')
    }
    
    const fightWon = () => {
+      setDisplayEnemy(false)
       setSceneStage('fightWon')
    }
    
@@ -76,7 +80,7 @@ export default function Scene9() {
    const soldiersApproach = {
       fight: 
          <>
-            <p>The red cloaked soldiers didnt ask anything. The captain looked down on you from his horse and said:</p>
+            <p>The red cloaked soldiers didnt ask anything. The captain looked into your eyes and said:</p>
             <p>This is for our brothers at the crossroads. You should have stayed out of it.</p>
             <p>Then all the soldiers drew their weapon and charged at you with all their fury.</p>
             <ButtonContainer>
@@ -144,7 +148,7 @@ export default function Scene9() {
       unsuccessfulHide: 
          <>
             <p>The soldiers caught you hiding.</p>
-            <p>They didnt ask anything. The captain looked down on you from his horse and said:</p>
+            <p>They didnt ask anything. The captain looked into your eyes and said:</p>
             <p>This is for our brothers at the crossroads. You should have stayed out of it.</p>
             <p>Then all the soldiers drew their weapon and charged at you with all their fury.</p>
             <ButtonContainer>
@@ -159,6 +163,7 @@ export default function Scene9() {
       <div className={classes.Scene9}>
          <AppBar />
          <Background img={backgroundImg} />
+         {displayEnemy && <Enemy enemyImage={soldiers} />}
          <TextContainer>
             <h2>Scene 9:</h2>
             {sceneStageDisplay}
