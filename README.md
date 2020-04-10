@@ -1,3 +1,5 @@
+###### About the project
+
 This was my very first programming project on my own.
 The idea was to replicate an old-school console-input based pure text adventure game. 
 
@@ -12,8 +14,8 @@ It is not optimized for smaller screen sizes and currently not planning it eithe
 
 
 Here are some ideas that i plan to implement in the future:
--a simple Save/Load system with the use of LocalStorage
--balancing things (XP gain, enemy health)
--extending the story and give it a proper ending (it ends way to quickly in a fairly unsatisfying way)
--making more in-depth choices
--more class identity to really feel like they are different (not just a few choices and character stat difference)
+- a simple Save/Load system with the use of LocalStorage
+- balancing things (XP gain, enemy health)
+- extending the story and give it a proper ending (it ends way to quickly in a fairly unsatisfying way)
+- making more in-depth choices
+- more class identity to really feel like they are different (not just a few choices and character stat difference)
