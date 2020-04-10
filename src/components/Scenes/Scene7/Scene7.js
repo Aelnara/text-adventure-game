@@ -45,7 +45,7 @@ export default function Scene7() {
    }
    
    const leftInterveneFight = () => {
-      initializeEnemy(350, 90, 400)
+      initializeEnemy(450, 90, 400)
       setSceneStage('leftInterveneFight')
    }
    
@@ -57,7 +57,7 @@ export default function Scene7() {
    }
    
    const rightSearchFight = () => {
-      initializeEnemy(250, 70, 300)
+      initializeEnemy(400, 80, 300)
       setSceneStage('rightSearchFight')
    }
    

@@ -40,7 +40,7 @@ export default function Scene9() {
    }
    
    const soldiersFight = () => {
-      initializeEnemy(500, 130, 600)
+      initializeEnemy(600, 150, 600)
       setSceneStage('soldiersFight')
    }
    

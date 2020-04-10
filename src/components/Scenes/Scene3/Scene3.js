@@ -41,7 +41,7 @@ export default function Scene3() {
    }
 
    const fight = () => {
-      initializeEnemy(200, 50, 300)
+      initializeEnemy(300, 60, 300)
       setDisplayFirstBandit(true)
       setSceneStage('fight')
    }
@@ -52,7 +52,7 @@ export default function Scene3() {
    }
    
    const searchCampFight = () => {
-      initializeEnemy(150, 40, 200)
+      initializeEnemy(250, 50, 200)
       setDisplaySecondBandit(true)
       setSceneStage('searchCampFight')
    }

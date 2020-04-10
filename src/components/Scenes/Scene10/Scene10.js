@@ -81,7 +81,7 @@ export default function Scene10() {
    }, [guessCount]);
    
    const golemFight = () => {
-      initializeEnemy(300, 100, 600)
+      initializeEnemy(500, 150, 600)
       setDisplayEnemy(true)
       setSceneStage('golemFight')
    }

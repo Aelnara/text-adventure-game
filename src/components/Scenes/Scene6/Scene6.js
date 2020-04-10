@@ -41,7 +41,7 @@ export default function Scene6() {
    }
    
    const ruinsFight = () => {
-      initializeEnemy(300, 100, 400)
+      initializeEnemy(400, 110, 400)
       setSceneStage('fight')
    }
    

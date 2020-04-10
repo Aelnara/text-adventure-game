@@ -52,7 +52,7 @@ export default function Scene5() {
    }
    
    const fight = () => {
-      initializeEnemy(200, 50, 500)
+      initializeEnemy(400, 70, 500)
       setDisplayWolf(true)
       setSceneStage('fight')
    }
@@ -63,7 +63,7 @@ export default function Scene5() {
    }
    
    const boarFight = () => {
-      initializeEnemy(150, 40, 200)
+      initializeEnemy(300, 60, 200)
       setDisplayBoar(true)
       setSceneStage('boarFight')
    }

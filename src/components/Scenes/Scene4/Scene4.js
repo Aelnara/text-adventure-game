@@ -37,7 +37,7 @@ export default function Scene4() {
    }
    
    const fight = () => {
-      initializeEnemy(200, 60, 300)
+      initializeEnemy(350, 60, 300)
       setDisplayEnemy(true)
       setSceneStage('fight')
    }
