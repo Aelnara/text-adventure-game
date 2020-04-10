@@ -1,4 +1,4 @@
-###### About the project
+## About the project
 
 This was my very first programming project on my own.
 The idea was to replicate an old-school console-input based pure text adventure game. 
