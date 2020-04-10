@@ -3,16 +3,22 @@ import { makeStyles } from '@material-ui/core/styles';
 import { GameStageContext } from 'contexts/GameStageContext';
 import { PlayerContext } from 'contexts/PlayerContext';
 import { EnemyContext } from 'contexts/EnemyContext';
-import Button from '@material-ui/core/Button';
 import AppBar from 'components/AppBar/AppBar';
 import Fight from 'components/Scenes/Fight/Fight';
 import TextContainer from 'components/Layouts/TextContainer';
-import ButtonContainer from 'components/Layouts/ButtonContainer';
 import Background from 'components/Layouts/Background';
 import backgroundImg from 'assets/images/environment/environment-forest-1.png';
 import wolf from 'assets/images/enemies/enemy-wolf-1.png';
 import boar from 'assets/images/enemies/enemy-boar-1.png';
 import Enemy from 'components/Layouts/Enemy';
+import StageInitial from './StageInitial';
+import StageMagePlayer from './StageMagePlayer';
+import StageFightWon from './StageFightWon';
+import StageMoveOn from './StageMoveOn';
+import StageRest from './StageRest';
+import StageBoarFightWon from './StageBoarFightWon';
+import StageSuccessfulCalm from './StageSuccessfulCalm';
+import StageUnsuccessfulCalm from './StageUnsuccessfulCalm';
 
 const useStyles = makeStyles(theme => ({
    Scene5: {
@@ -29,7 +35,7 @@ export default function Scene5() {
    const { player, healToFull, changeCurrentHP, changeXP } = useContext(PlayerContext);
    const { initializeEnemy } = useContext(EnemyContext);
    const [sceneStage, setSceneStage] = useState('initial')
-   const [isDisturbed, setIsDisturbed] = useState('undisturbed')
+   const [isDisturbed, setIsDisturbed] = useState(false)
    const [displayWolf, setDisplayWolf] = useState(false)
    const [displayBoar, setDisplayBoar] = useState(false)
    
@@ -83,7 +89,7 @@ export default function Scene5() {
       if(chance > 0){
          healToFull()
       } else {
-         setIsDisturbed('disturbed')
+         setIsDisturbed(true)
       }
       setSceneStage('rest')
    }
@@ -92,87 +98,17 @@ export default function Scene5() {
       setSceneStage('moveOn')
    }
    
-   const resting = {
-      undisturbed: 
-         <>
-            <p>You decided to stay here for the night. Whats the chance of being attacked twice, huh??</p>
-            <p>You slept undisturbed, and in the first sunlight you left this place.</p>
-            <p>[Health Restored]</p>
-            <ButtonContainer>
-               <Button onClick={goToScene6} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
-      disturbed:
-         <>
-            <p>You decided to stay here for the night. Whats the chance of being attacked twice, huh??</p>
-            <p>Well, that was not your lucky night because a wild boar showed up and attacked you!</p>
-            <ButtonContainer>
-               <Button onClick={boarFight} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>
-   }
-   
    const sceneStages = {
-      initial: 
-         <>
-            <p>You ventured deep into the forest, but the sun was about to set down.</p>
-            <p>You found a place to settle down for the night. It was about midnight when you spotted a very hungry looking wolf.</p>
-            <p>You reached to your weapon as the wolf charged at you.</p>
-            <ButtonContainer>
-               <Button onClick={proceed} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
-      magePlayer: 
-         <>
-            <p>You could fight the wolf but as a Mage you could also try to calm the wolf with a spell.</p>
-            <ButtonContainer>
-               <Button onClick={choiceCalm} variant="contained">Calm</Button>
-               <Button onClick={fight} variant="contained">Fight</Button>
-            </ButtonContainer>
-         </>,
-      successfulCalm: 
-         <>
-            <p>You successfully casted a calming spell and the wolf slowly walked away.</p>
-            <p>[You gained +300 XP]</p>
-            <ButtonContainer>
-               <Button onClick={fightWon} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
-      unsuccessfulCalm: 
-         <>
-            <p>Your failed to cast the spell in time and the wolf damaged you.</p>
-            <p>[You lost 30 Health]</p>
-            <ButtonContainer>
-               <Button onClick={fight} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
+      initial: <StageInitial proceed={proceed} />,
+      magePlayer: <StageMagePlayer choiceCalm={choiceCalm} fight={fight} />,
+      successfulCalm: <StageSuccessfulCalm fightWon={fightWon} />,
+      unsuccessfulCalm: <StageUnsuccessfulCalm fight={fight} />,
       fight: <Fight fightWon={fightWon} />,
-      fightWon: 
-         <>
-            <p>After dealing with the wolf, you debate whether you should leave or stay and rest for the rest of the night.</p>
-            <p>Unlikely, but there could be more wolves around here.</p>
-            <ButtonContainer>
-               <Button onClick={choiceRest} variant="contained">Rest</Button>
-               <Button onClick={choiceMoveOn} variant="contained">Move on</Button>
-            </ButtonContainer>
-         </>,
-      rest: resting[isDisturbed],
-      moveOn:
-         <>
-            <p>You decided to move on from this place.</p>
-            <p>Even if it was unlikely, you didnt want to take the risk of being attacked again.</p>
-            <ButtonContainer>
-               <Button onClick={goToScene6} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
+      fightWon: <StageFightWon choiceRest={choiceRest} choiceMoveOn={choiceMoveOn} />,
+      rest: <StageRest disturbed={isDisturbed} goToScene6={goToScene6} boarFight={boarFight} />,
+      moveOn: <StageMoveOn goToScene6={goToScene6} />,
       boarFight: <Fight fightWon={boarFightWon} />,
-      boarFightWon: 
-         <>
-            <p>Okay, its time to finally move on from this place...</p>
-            <ButtonContainer>
-               <Button onClick={goToScene6} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
+      boarFightWon: <StageBoarFightWon goToScene6={goToScene6} />,
    }
    
    const sceneStageDisplay = sceneStages[sceneStage]

@@ -12,6 +12,14 @@ import Background from 'components/Layouts/Background';
 import backgroundImg from 'assets/images/environment/environment-forest-4.png';
 import golem from 'assets/images/enemies/enemy-golem-1.png';
 import Enemy from 'components/Layouts/Enemy';
+import StageInitial from './StageInitial';
+import StageWrongGuess from './StageWrongGuess';
+import StageWrongGuessFight from './StageWrongGuessFight';
+import StageCorrectGuess from './StageCorrectGuess';
+import StageEndingGood from './StageEndingGood';
+import StageFightWon from './StageFightWon';
+import StageChoiceLeave from './StageChoiceLeave';
+import StageEndingBad from './StageEndingBad';
 
 const useStyles = makeStyles(theme => ({
    Scene10: {
@@ -100,15 +108,7 @@ export default function Scene10() {
    }
    
    const sceneStages = {
-      initial: 
-         <>
-            <p>You found a very wierd place... there was a door in the middle and 3 strange stones around it.</p>
-            <p>There were also countless lifeless stone golem figures everywhere around the door.</p>
-            <p>Is this some kind of vault?? The door is locked and it seems to require a code to open.</p>
-            <ButtonContainer>
-               <Button onClick={vault} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
+      initial: <StageInitial vault={vault} />,
       vault: 
          <>
             <p>The door needs a code to open.</p>
@@ -119,70 +119,14 @@ export default function Scene10() {
                <Button onClick={choiceLeave} variant="contained">Leave</Button>
             </ButtonContainer>
          </>,
-      wrongGuess: 
-         <>
-            <p>That was not the right code. {guessCount}/3 of the stones started to glow.</p>
-            <p>You activated some kind of defense mechanism that shocked the whole place.</p>
-            <p>[You lost 10 Health]</p>
-            <ButtonContainer>
-               <Button onClick={vault} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
-      wrongGuessFight: 
-         <>
-            <p>All 3 stones started to glow around the door...</p>
-            <p>You activated the next level defense security and a Stone Golem came to life.</p>
-            <p>The Golem attacked you.</p>
-            <ButtonContainer>
-               <Button onClick={golemFight} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
-      correctGuess: 
-         <>
-            <p>You remembered the code you found in the forest on the trees and you managed to open the secret door.</p>
-            <p>There were tons of gold in the vault. It could last for more than a lifetime.</p>
-            <p>You took the gold and left the place.</p>
-            <ButtonContainer>
-               <Button onClick={endingGood} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
-      endingGood: 
-         <>
-            <p>You decided you already had enough adventures, and with all the gold you can go home and live peacefully in great wealth.</p>
-            <p>The story of your Hero ends here, {player.name}...</p>
-            <ButtonContainer>
-               <Button onClick={goToOutro} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
+      wrongGuess: <StageWrongGuess guessCount={guessCount} vault={vault} />,
+      wrongGuessFight: <StageWrongGuessFight golemFight={golemFight} />,
+      correctGuess: <StageCorrectGuess endingGood={endingGood} />,
+      endingGood: <StageEndingGood name={player.name} goToOutro={goToOutro} />,
       golemFight: <Fight fightWon={fightWon} />,
-      fightWon: 
-         <>
-            <p>You managed to take down the golem.</p>
-            <p>You should probably be more careful with your guesses if you dont want to wake up another one...</p>
-            <ButtonContainer>
-               <Button onClick={vault} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
-      choiceLeave: 
-         <>
-            <p>You didnt know the code, so you decided to leave the place. Too bad...</p>
-            <p>Maybe it was the one you found in the forest on the trees??</p>
-            <p>You should have memorized the code or at least took a note of it...</p>
-            <p>Well, it doesnt matter now...</p>
-            <ButtonContainer>
-               <Button onClick={endingBad} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
-      endingBad: 
-         <>
-            <p>After you moved on from the vault, the sun was already going down.</p>
-            <p>You decided to make a camp for the night and you would continue your journey in the first daylight.</p>
-            <p>That was not a good place to settle down for the night. A werwolf tore you apart in your dreams...</p>
-            <p>The story of your Hero ends here, {player.name}...</p>
-            <ButtonContainer>
-               <Button onClick={goToOutro} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
+      fightWon: <StageFightWon vault={vault} />,
+      choiceLeave: <StageChoiceLeave endingBad={endingBad} />,
+      endingBad: <StageEndingBad name={player.name} goToOutro={goToOutro} />,
    }
    
    const sceneStageDisplay = sceneStages[sceneStage]

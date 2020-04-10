@@ -3,15 +3,20 @@ import { makeStyles } from '@material-ui/core/styles';
 import { GameStageContext } from 'contexts/GameStageContext';
 import { PlayerContext } from 'contexts/PlayerContext';
 import { EnemyContext } from 'contexts/EnemyContext';
-import Button from '@material-ui/core/Button';
 import AppBar from 'components/AppBar/AppBar';
 import Fight from 'components/Scenes/Fight/Fight';
 import TextContainer from 'components/Layouts/TextContainer';
-import ButtonContainer from 'components/Layouts/ButtonContainer';
 import Background from 'components/Layouts/Background';
 import backgroundImg from 'assets/images/environment/environment-forest-1.png';
 import soldiers from 'assets/images/enemies/enemy-soldiers-2.png';
 import Enemy from 'components/Layouts/Enemy';
+import StageInitial from './StageInitial';
+import StageFightWon from './StageFightWon';
+import StageComfront from './StageComfront';
+import StageHide from './StageHide';
+import StageSuccessfulHide from './StageSuccessfulHide';
+import StageSuccessfulHideRogue from './StageSuccessfulHideRogue';
+import StageUnsuccessfulHide from './StageUnsuccessfulHide';
 
 const useStyles = makeStyles(theme => ({
    Scene9: {
@@ -77,84 +82,15 @@ export default function Scene9() {
       }
    }
    
-   const soldiersApproach = {
-      fight: 
-         <>
-            <p>The red cloaked soldiers didnt ask anything. The captain looked into your eyes and said:</p>
-            <p>This is for our brothers at the crossroads. You should have stayed out of it.</p>
-            <p>Then all the soldiers drew their weapon and charged at you with all their fury.</p>
-            <ButtonContainer>
-               <Button onClick={soldiersFight} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
-      peaceful:
-         <>
-            <p>They were on a routine patrol in the area. You talked to the red cloaked captain.</p>
-            <p>He gave you a Health Potion, and the soldiers wished you good fortune as they moved on.</p>
-            <p>[You gained +1 Health Potion]</p>
-            <ButtonContainer>
-               <Button onClick={goToScene10} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
-   }
-   
-   const consequence = player.choices.scene7fight ? 'fight' : 'peaceful'
-   
    const sceneStages = {
-      initial: 
-         <>
-            <p>A group of red cloaked soldiers are coming at your way.</p>
-            <p>They are probably on a patrol.</p>
-            <ButtonContainer>
-               <Button onClick={choiceComfront} variant="contained">Comfront</Button>
-               <Button onClick={choiceHide} variant="contained">Hide</Button>
-            </ButtonContainer>
-         </>,
-      comfront: soldiersApproach[consequence],
+      initial: <StageInitial choiceComfront={choiceComfront} choiceHide={choiceHide} />,
+      comfront: <StageComfront soldiersDied={player.choices.scene7fight} soldiersFight={soldiersFight} goToScene10={goToScene10} />,
       soldiersFight: <Fight fightWon={fightWon} />,
-      fightWon: 
-         <>
-            <p>You managed to take down every soldier one after another. It was a tough and bloody fight.</p>
-            <p>You should leave the area before any more red cloaked soldiers show up.</p>
-            <ButtonContainer>
-               <Button onClick={goToScene10} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
-      hide: 
-         <>
-            <p>You decided you try to hide from the approaching soldiers.</p>
-            <p>Who knows if they are friendly or not...</p>
-            <ButtonContainer>
-               <Button onClick={hideProceed} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
-      successfulHide: 
-         <>
-            <p>They were on a routine patrol in the area. They were not looking for you.</p>
-            <p>You didnt get caught.</p>
-            <ButtonContainer>
-               <Button onClick={goToScene10} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
-      successfulHideRogue: 
-         <>
-            <p>As a Rouge, you are a master of stealth and you managed to hide from the soldiers.</p>
-            <p>The red cloaked soldiers moved on.</p>
-            <p>[You gained +400 XP]</p>
-            <ButtonContainer>
-               <Button onClick={goToScene10} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
-      unsuccessfulHide: 
-         <>
-            <p>The soldiers caught you hiding.</p>
-            <p>They didnt ask anything. The captain looked into your eyes and said:</p>
-            <p>This is for our brothers at the crossroads. You should have stayed out of it.</p>
-            <p>Then all the soldiers drew their weapon and charged at you with all their fury.</p>
-            <ButtonContainer>
-               <Button onClick={soldiersFight} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
+      fightWon: <StageFightWon goToScene10={goToScene10} />,
+      hide: <StageHide hideProceed={hideProceed} />,
+      successfulHide: <StageSuccessfulHide goToScene10={goToScene10} />,
+      successfulHideRogue: <StageSuccessfulHideRogue goToScene10={goToScene10} />,
+      unsuccessfulHide: <StageUnsuccessfulHide soldiersFight={soldiersFight} />
    }
    
    const sceneStageDisplay = sceneStages[sceneStage]

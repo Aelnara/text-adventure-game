@@ -6,7 +6,7 @@ export function PlayerProvider(props) {
    const [player, setPlayer] = useState({
       name: '',
       classType: 'warrior',
-      currentHealth: 200,
+      currentHealth: 300,
       maxHealth: 300,
       currentXP: 0,
       maxXP: 500,
@@ -57,7 +57,7 @@ export function PlayerProvider(props) {
       const player = {
          name: oldState.name,
          classType: 'warrior',
-         currentHealth: 200,
+         currentHealth: 300,
          maxHealth: 300,
          currentXP: 0,
          maxXP: 500,

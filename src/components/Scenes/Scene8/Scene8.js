@@ -10,6 +10,10 @@ import Background from 'components/Layouts/Background';
 import backgroundImg from 'assets/images/environment/environment-forest-3.png';
 import monk from 'assets/images/enemies/enemy-monk-1.png';
 import Enemy from 'components/Layouts/Enemy';
+import StageInitial from './StageInitial';
+import StageCorrectGuess from './StageCorrectGuess';
+import StageRiddlePass from './StageRiddlePass';
+import StageMoveOn from './StageMoveOn';
 
 const useStyles = makeStyles(theme => ({
    Scene8: {
@@ -75,15 +79,7 @@ export default function Scene8() {
    }
    
    const sceneStages = {
-      initial: 
-         <>
-            <p>As you were wandering, you met a monk.</p>
-            <p>You had an interesting conversation with the monk but before you could leave he asked you if you are interested in a riddle.</p>
-            <ButtonContainer>
-               <Button onClick={choiceRiddle} variant="contained">Sure</Button>
-               <Button onClick={choiceMoveOn} variant="contained">No</Button>
-            </ButtonContainer>
-         </>,
+      initial: <StageInitial choiceRiddle={choiceRiddle} choiceMoveOn={choiceMoveOn} />,
       riddle: 
          <>
             <p>The old monk seemed happy about your answer, and he asked you immediately:</p>
@@ -94,31 +90,9 @@ export default function Scene8() {
                <Button onClick={riddlePass} variant="contained">Pass</Button>
             </ButtonContainer>
          </>,
-      correctGuess: 
-         <>
-            <p>Thats right!!! The monk cheered up like a child as you guessed it right!</p>
-            <p>He even gave you a Health Potion in his happiness before he walked away.</p>
-            <p>[You gained +1 Health Potion]</p>
-            <p>[You gained +300 XP]</p>
-            <ButtonContainer>
-               <Button onClick={goToScene9} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
-      riddlePass: 
-         <>
-            <p>You had no idea what the answer could be and you gave up.</p>
-            <p>The monk was disappointed and his face turned sad as he walked away.</p>
-            <ButtonContainer>
-               <Button onClick={goToScene9} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
-      moveOn: 
-         <>
-            <p>You had an interesting conversation with the monk, but you decided that was enough of him and you moved on.</p>
-            <ButtonContainer>
-               <Button onClick={goToScene9} variant="contained">Continue</Button>
-            </ButtonContainer>
-         </>,
+      correctGuess: <StageCorrectGuess goToScene9={goToScene9} />,
+      riddlePass: <StageRiddlePass goToScene9={goToScene9} />,
+      moveOn: <StageMoveOn goToScene9={goToScene9} />
    }
    
    const sceneStageDisplay = sceneStages[sceneStage]
