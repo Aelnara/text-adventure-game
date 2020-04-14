@@ -7,10 +7,10 @@ import AppBar from 'components/AppBar/AppBar';
 import Fight from 'components/Scenes/Fight/Fight';
 import TextContainer from 'components/Layouts/TextContainer';
 import Background from 'components/Layouts/Background';
+import Enemy from 'components/Layouts/Enemy';
 import backgroundImg from 'assets/images/environment/environment-forest-1.png';
 import bandit1 from 'assets/images/enemies/enemy-bandit-1.png';
 import bandit4 from 'assets/images/enemies/enemy-bandit-4.png';
-import Enemy from 'components/Layouts/Enemy';
 import StageInitial from './StageInitial';
 import StageFightWon from './StageFightWon';
 import StageMoveOn from './StageMoveOn';
@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
 export default function Scene3() {
    const classes = useStyles();
    const { changeGameStage } = useContext(GameStageContext);
-   const { setScene3Consequence } = useContext(PlayerContext);
+   const { dispatch } = useContext(PlayerContext);
    const { initializeEnemy } = useContext(EnemyContext);
    const [sceneStage, setSceneStage] = useState('initial')
    const [displayFirstBandit, setDisplayFirstBandit] = useState(false)
@@ -67,7 +67,7 @@ export default function Scene3() {
    }
    
    const searchCamp = () => {
-      setScene3Consequence()
+      dispatch({ type: "SCENE_3_CONSEQENCE" })
       setSceneStage('searchCamp')
    }
    

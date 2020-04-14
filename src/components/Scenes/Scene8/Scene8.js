@@ -7,9 +7,9 @@ import AppBar from 'components/AppBar/AppBar';
 import TextContainer from 'components/Layouts/TextContainer';
 import ButtonContainer from 'components/Layouts/ButtonContainer';
 import Background from 'components/Layouts/Background';
+import Enemy from 'components/Layouts/Enemy';
 import backgroundImg from 'assets/images/environment/environment-forest-3.png';
 import monk from 'assets/images/enemies/enemy-monk-1.png';
-import Enemy from 'components/Layouts/Enemy';
 import StageInitial from './StageInitial';
 import StageCorrectGuess from './StageCorrectGuess';
 import StageRiddlePass from './StageRiddlePass';
@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
 export default function Scene8() {
    const classes = useStyles();
    const { changeGameStage } = useContext(GameStageContext);
-   const { changeXP, changePotion } = useContext(PlayerContext);
+   const { dispatch } = useContext(PlayerContext);
    const [sceneStage, setSceneStage] = useState('initial')
    const [guess, setGuess] = useState('')
    const [displayEnemy, setDisplayEnemy] = useState(true)
@@ -60,8 +60,8 @@ export default function Scene8() {
    
    const makeGuess = () => {
       if(guess.toLowerCase() === 'e'){
-         changeXP(300)
-         changePotion(1)
+         dispatch({ type: "CHANGE_XP", value: 300 })
+         dispatch({ type: "CHANGE_POTION", value: 1 })
          setSceneStage('correctGuess')
       } else {
          setGuess('')

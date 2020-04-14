@@ -7,9 +7,9 @@ import AppBar from 'components/AppBar/AppBar';
 import Fight from 'components/Scenes/Fight/Fight';
 import TextContainer from 'components/Layouts/TextContainer';
 import Background from 'components/Layouts/Background';
+import Enemy from 'components/Layouts/Enemy';
 import backgroundImg from 'assets/images/environment/environment-forest-1.png';
 import soldiers from 'assets/images/enemies/enemy-soldiers-2.png';
-import Enemy from 'components/Layouts/Enemy';
 import StageInitial from './StageInitial';
 import StageFightWon from './StageFightWon';
 import StageComfront from './StageComfront';
@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
 export default function Scene9() {
    const classes = useStyles();
    const { changeGameStage } = useContext(GameStageContext);
-   const { player, changeXP, changePotion } = useContext(PlayerContext);
+   const { player, dispatch } = useContext(PlayerContext);
    const { initializeEnemy } = useContext(EnemyContext);
    const [sceneStage, setSceneStage] = useState('initial')
    const [displayEnemy, setDisplayEnemy] = useState(true)
@@ -50,8 +50,8 @@ export default function Scene9() {
    }
    
    const choiceComfront = () => {
-      if(!player.choices.scene7fight){
-         changePotion(1)
+      if(!player.scene7fight){
+         dispatch({ type: "CHANGE_POTION", value: 1 })
       }
       setSceneStage('comfront')
    }
@@ -62,19 +62,19 @@ export default function Scene9() {
    
    const hideProceed = () => {
       if(player.classType === 'rogue'){
-         if(player.choices.scene7fight){
+         if(player.scene7fight){
             const chance = Math.floor(Math.random() * 2)
             if(chance > 0){
                setSceneStage('unsuccessfulHide')
             } else {
-               changeXP(400)
+               dispatch({ type: "CHANGE_XP", value: 400 })
                setSceneStage('successfulHideRogue')
             }
          } else {
             setSceneStage('successfulHide')
          }
       } else {
-         if(player.choices.scene7fight){
+         if(player.scene7fight){
             setSceneStage('unsuccessfulHide')
          } else {
             setSceneStage('successfulHide')
@@ -84,7 +84,7 @@ export default function Scene9() {
    
    const sceneStages = {
       initial: <StageInitial choiceComfront={choiceComfront} choiceHide={choiceHide} />,
-      comfront: <StageComfront soldiersDied={player.choices.scene7fight} soldiersFight={soldiersFight} goToScene10={goToScene10} />,
+      comfront: <StageComfront soldiersDied={player.scene7fight} soldiersFight={soldiersFight} goToScene10={goToScene10} />,
       soldiersFight: <Fight fightWon={fightWon} />,
       fightWon: <StageFightWon goToScene10={goToScene10} />,
       hide: <StageHide hideProceed={hideProceed} />,

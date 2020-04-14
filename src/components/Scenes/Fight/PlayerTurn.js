@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function PlayerTurn(props) {
    const classes = useStyles();
-   const { player, changeCurrentHP, potionHealToFull } = useContext(PlayerContext);
+   const { player, dispatch } = useContext(PlayerContext);
    const { enemy, changeEnemyHealth } = useContext(EnemyContext);
    const [turnStage, setTurnStage] = useState('initial')
    
@@ -60,7 +60,8 @@ export default function PlayerTurn(props) {
    
    const potion = () => {
       if(player.potion > 0){
-         potionHealToFull()
+         dispatch({ type: "CHANGE_POTION", value: -1 })
+         dispatch({ type: "HEAL_TO_FULL" })
          setTurnStage('successfulDrink')
       } else {
          setTurnStage('unsuccessfulDrink')
@@ -68,7 +69,7 @@ export default function PlayerTurn(props) {
    }
    
    const flee = () => {
-      changeCurrentHP(-20)
+      dispatch({ type: "CHANGE_CURRENT_HP", value: -20 })
       setTurnStage('flee')
    }
    

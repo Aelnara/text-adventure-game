@@ -10,15 +10,15 @@ import ClassTypeDisplay from './ClassTypeDisplay';
 
 export default function CharacterCreation() {
    const classes = CharacterCreationStyles();
-   const { player, setName, setClassType } = useContext(PlayerContext);
+   const { player, dispatch } = useContext(PlayerContext);
    const { changeGameStage } = useContext(GameStageContext);
    
    const handleNameChange = evt => {
-      setName(evt.target.value)
+      dispatch({ type: "SET_NAME", value: evt.target.value })
    }
    
    const handleSelect = evt => {
-      setClassType(evt.target.value)
+      dispatch({ type: "SET_CLASS_TYPE", value: evt.target.value })
    }
    
    const goToScene1 = () => {

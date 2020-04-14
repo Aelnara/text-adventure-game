@@ -8,7 +8,7 @@ import ButtonContainer from 'components/Layouts/ButtonContainer';
 
 
 export default function Fight(props) {
-   const { player, changeXP } = useContext(PlayerContext);
+   const { player, dispatch } = useContext(PlayerContext);
    const { enemy } = useContext(EnemyContext);
    const [playerTurn, setTurn] = useState(false)
    
@@ -17,7 +17,7 @@ export default function Fight(props) {
    }
    
    const gainXP = () => {
-      changeXP(enemy.XPgain)
+      dispatch({ type: "CHANGE_XP", value: enemy.XPgain })
       props.fightWon()
    }
    

@@ -9,9 +9,9 @@ import Fight from 'components/Scenes/Fight/Fight';
 import TextContainer from 'components/Layouts/TextContainer';
 import ButtonContainer from 'components/Layouts/ButtonContainer';
 import Background from 'components/Layouts/Background';
+import Enemy from 'components/Layouts/Enemy';
 import backgroundImg from 'assets/images/environment/environment-forest-4.png';
 import golem from 'assets/images/enemies/enemy-golem-1.png';
-import Enemy from 'components/Layouts/Enemy';
 import StageInitial from './StageInitial';
 import StageWrongGuess from './StageWrongGuess';
 import StageWrongGuessFight from './StageWrongGuessFight';
@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
 export default function Scene10() {
    const classes = useStyles();
    const { changeGameStage } = useContext(GameStageContext);
-   const { player, changeCurrentHP } = useContext(PlayerContext);
+   const { player, dispatch } = useContext(PlayerContext);
    const { initializeEnemy } = useContext(EnemyContext);
    const [sceneStage, setSceneStage] = useState('initial')
    const [guess, setGuess] = useState('')
@@ -68,7 +68,7 @@ export default function Scene10() {
       } else {
          setGuess('')
          setGuessCount(guessCount + 1)
-         changeCurrentHP(-10)
+         dispatch({ type: "CHANGE_CURRENT_HP", value: -10 })
          setSceneStage('wrongGuess')
       }
    }

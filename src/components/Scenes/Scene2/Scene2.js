@@ -5,9 +5,9 @@ import { PlayerContext } from 'contexts/PlayerContext';
 import AppBar from 'components/AppBar/AppBar';
 import TextContainer from 'components/Layouts/TextContainer';
 import Background from 'components/Layouts/Background';
+import Enemy from 'components/Layouts/Enemy';
 import backgroundImg from 'assets/images/environment/environment-forest-3.png';
 import stranger from 'assets/images/enemies/enemy-stranger-1.png';
-import Enemy from 'components/Layouts/Enemy';
 import StageInitial from './StageInitial';
 import StageAmbush from './StageAmbush';
 import StageHelp from './StageHelp';
@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 export default function Scene2() {
    const classes = useStyles();
    const { changeGameStage } = useContext(GameStageContext);
-   const { player, changeCurrentHP, changePotion, changeXP, setScene2Consequence } = useContext(PlayerContext);
+   const { player, dispatch } = useContext(PlayerContext);
    const [sceneStage, setSceneStage] = useState('initial')
    const [displayEnemy, setDisplayEnemy] = useState(true)
    
@@ -34,18 +34,18 @@ export default function Scene2() {
    
    const choiceHelp = () => {
       setSceneStage('help')
-      changePotion(1)
-      changeXP(200)
+      dispatch({ type: "CHANGE_POTION", value: 1 })
+      dispatch({ type: "CHANGE_XP", value: 200 })
    }
    
    const choiceAmbush = () => {
       setDisplayEnemy(false)
       setSceneStage('ambush')
       if(player.classType === 'rogue') {
-         changeXP(400)
+         dispatch({ type: "CHANGE_XP", value: 400 })
       } else {
-         setScene2Consequence()
-         changeCurrentHP(-20)
+         dispatch({ type: "SCENE_2_CONSEQENCE" })
+         dispatch({ type: "CHANGE_CURRENT_HP", value: -20 })
       }
    }
    

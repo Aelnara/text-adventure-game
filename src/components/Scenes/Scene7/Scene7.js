@@ -7,10 +7,10 @@ import AppBar from 'components/AppBar/AppBar';
 import Fight from 'components/Scenes/Fight/Fight';
 import TextContainer from 'components/Layouts/TextContainer';
 import Background from 'components/Layouts/Background';
+import Enemy from 'components/Layouts/Enemy';
 import backgroundImg from 'assets/images/environment/environment-forest-1.png';
 import soldiers from 'assets/images/enemies/enemy-soldiers-1.png';
 import hunter from 'assets/images/enemies/enemy-hunter-1.png';
-import Enemy from 'components/Layouts/Enemy';
 import StageInitial from './StageInitial';
 import StageChoiceLeftPath from './StageChoiceLeftPath';
 import StageLeftIntervene from './StageLeftIntervene';
@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 export default function Scene7() {
    const classes = useStyles();
    const { changeGameStage } = useContext(GameStageContext);
-   const { changePotion, setScene7Consequence } = useContext(PlayerContext);
+   const { dispatch } = useContext(PlayerContext);
    const { initializeEnemy } = useContext(EnemyContext);
    const [sceneStage, setSceneStage] = useState('initial')
    const [displaySoldiers, setDisplaySoldiers] = useState(false)
@@ -50,8 +50,8 @@ export default function Scene7() {
    }
    
    const interveneFightWon = () => {
-      setScene7Consequence()
-      changePotion(1)
+      dispatch({ type: "SCENE_7_CONSEQENCE" })
+      dispatch({ type: "CHANGE_POTION", value: 1 })
       setDisplaySoldiers(false)
       setSceneStage('interveneFightWon')
    }
@@ -85,7 +85,7 @@ export default function Scene7() {
    }
    
    const rightSearch = () => {
-      changePotion(2)
+      dispatch({ type: "CHANGE_POTION", value: 2 })
       setSceneStage('rightSearch')
    }
    

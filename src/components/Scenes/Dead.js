@@ -38,10 +38,10 @@ const useStyles = makeStyles(theme => ({
 export default function Dead() {
    const classes = useStyles();
    const { changeGameStage } = useContext(GameStageContext);
-   const { resetPlayer } = useContext(PlayerContext);
+   const { dispatch } = useContext(PlayerContext);
    
    const restart = () => {
-      resetPlayer()
+      dispatch({ type: "RESET_PLAYER" })
       changeGameStage('characterCreation')
    }
    

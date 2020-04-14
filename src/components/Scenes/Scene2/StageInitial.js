@@ -5,9 +5,9 @@ import ButtonContainer from 'components/Layouts/ButtonContainer';
 export default function StageInitial(props) {
    return (
       <>
-         <p>You tried to sneak up on him, but he noticed you and ran away.</p>
-         <p>You tried to run after him and you broke your ankle. This was a very bad idea...</p>
-         <p>[You lost 20 Health]</p>
+         <p>As you travel the roads, you see a strange person near the road and he seems to have trouble with something.</p>
+         <p>He didnt notice you. This could be a perfect opportunity to ambush him and test your skills and also take some loot. You have the element of surprise.</p>
+         <p>Or you could try to help him, but he does not look friendly at all.</p>
          <ButtonContainer>
             <Button onClick={props.choiceAmbush} variant="contained">Ambush</Button>
             <Button onClick={props.choiceHelp} variant="contained">Help</Button>

@@ -7,9 +7,9 @@ import AppBar from 'components/AppBar/AppBar';
 import Fight from 'components/Scenes/Fight/Fight';
 import TextContainer from 'components/Layouts/TextContainer';
 import Background from 'components/Layouts/Background';
+import Enemy from 'components/Layouts/Enemy';
 import backgroundImg from 'assets/images/environment/environment-forest-3.png';
 import stranger from 'assets/images/enemies/enemy-stranger-1.png';
-import Enemy from 'components/Layouts/Enemy';
 import StageInitial from './StageInitial';
 import StageFightWon from './StageFightWon';
 import StageMoveOn from './StageMoveOn';
@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 export default function Scene4() {
    const classes = useStyles();
    const { changeGameStage } = useContext(GameStageContext);
-   const { player, healToFull, changePotion } = useContext(PlayerContext);
+   const { player, dispatch } = useContext(PlayerContext);
    const { initializeEnemy } = useContext(EnemyContext);
    const [sceneStage, setSceneStage] = useState('initial')
    const [displayEnemy, setDisplayEnemy] = useState(false)
@@ -43,14 +43,14 @@ export default function Scene4() {
    }
    
    const fightWon = () => {
-      changePotion(1)
+      dispatch({ type: "CHANGE_POTION", value: 1 })
       setDisplayEnemy(false)
       setSceneStage('fightWon')
    }
    
    const choiceRest = () => {
-      if(!player.choices.scene2ambush) {
-         healToFull()
+      if(!player.scene2ambush) {
+         dispatch({ type: "HEAL_TO_FULL" })
       }
       setSceneStage('rest')
    }
@@ -61,7 +61,7 @@ export default function Scene4() {
    
    const sceneStages = {
       initial: <StageInitial choiceRest={choiceRest} choiceMoveOn={choiceMoveOn} />,
-      rest: <StageRest disturbed={player.choices.scene2ambush} goToHint1={goToHint1} fight={fight} />,
+      rest: <StageRest disturbed={player.scene2ambush} goToHint1={goToHint1} fight={fight} />,
       fight: <Fight fightWon={fightWon} />,
       fightWon: <StageFightWon goToHint1={goToHint1} />,
       moveOn: <StageMoveOn goToHint1={goToHint1} />

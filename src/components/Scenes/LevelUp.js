@@ -39,10 +39,10 @@ const useStyles = makeStyles(theme => ({
 
 export default function LevelUp() {
    const classes = useStyles();
-   const { changeLevelUpDisplay } = useContext(PlayerContext);
+   const { dispatch } = useContext(PlayerContext);
    
    const handleContinue = () => {
-      changeLevelUpDisplay()
+      dispatch({ type: "CHANGE_LEVELUP_DISPLAY" })
    }
    
    return (

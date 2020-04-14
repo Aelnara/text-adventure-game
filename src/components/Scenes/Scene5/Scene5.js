@@ -7,10 +7,10 @@ import AppBar from 'components/AppBar/AppBar';
 import Fight from 'components/Scenes/Fight/Fight';
 import TextContainer from 'components/Layouts/TextContainer';
 import Background from 'components/Layouts/Background';
+import Enemy from 'components/Layouts/Enemy';
 import backgroundImg from 'assets/images/environment/environment-forest-1.png';
 import wolf from 'assets/images/enemies/enemy-wolf-1.png';
 import boar from 'assets/images/enemies/enemy-boar-1.png';
-import Enemy from 'components/Layouts/Enemy';
 import StageInitial from './StageInitial';
 import StageMagePlayer from './StageMagePlayer';
 import StageFightWon from './StageFightWon';
@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
 export default function Scene5() {
    const classes = useStyles();
    const { changeGameStage } = useContext(GameStageContext);
-   const { player, healToFull, changeCurrentHP, changeXP } = useContext(PlayerContext);
+   const { player, dispatch } = useContext(PlayerContext);
    const { initializeEnemy } = useContext(EnemyContext);
    const [sceneStage, setSceneStage] = useState('initial')
    const [isDisturbed, setIsDisturbed] = useState(false)
@@ -76,10 +76,10 @@ export default function Scene5() {
    const choiceCalm = () => {
       const chance = Math.floor(Math.random() * 2)
       if(chance > 0){
-         changeXP(300)
+         dispatch({ type: "CHANGE_XP", value: 300 })
          setSceneStage('successfulCalm')
       } else {
-         changeCurrentHP(-30)
+         dispatch({ type: "CHANGE_CURRENT_HP", value: -30 })
          setSceneStage('unsuccessfulCalm')
       }
    }
@@ -87,7 +87,7 @@ export default function Scene5() {
    const choiceRest = () => {
       const chance = Math.floor(Math.random() * 3)
       if(chance > 0){
-         healToFull()
+         dispatch({ type: "HEAL_TO_FULL" })
       } else {
          setIsDisturbed(true)
       }

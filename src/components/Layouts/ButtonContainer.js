@@ -7,8 +7,6 @@ const useStyles = makeStyles(theme => ({
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      // position: 'absolute',
-      // top: 0
       '& button': {
          color: 'white',
          padding: '0 2rem !important',

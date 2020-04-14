@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function EnemyTurn(props) {
    const classes = useStyles();
-   const { player, changeCurrentHP } = useContext(PlayerContext);
+   const { player, dispatch } = useContext(PlayerContext);
    const { enemy, changeEnemyHealth } = useContext(EnemyContext);
    const [turnStage, setTurnStage] = useState('initial')
    
@@ -34,7 +34,7 @@ export default function EnemyTurn(props) {
          changeEnemyHealth(-player.attack)
          setTurnStage('successfulCounter')
       } else {
-         changeCurrentHP(-enemy.attack)
+         dispatch({ type: "CHANGE_CURRENT_HP", value: -enemy.attack })
          setTurnStage('unsuccessfulCounter')
       }
    }
@@ -44,13 +44,13 @@ export default function EnemyTurn(props) {
       if(chance < 8){
          setTurnStage('successfulDodge')
       } else {
-         changeCurrentHP(-enemy.attack)
+         dispatch({ type: "CHANGE_CURRENT_HP", value: -enemy.attack })
          setTurnStage('unsuccessfulDodge')
       }
    }
    
    const flee = () => {
-      changeCurrentHP(-enemy.attack)
+      dispatch({ type: "CHANGE_CURRENT_HP", value: -enemy.attack })
       setTurnStage('flee')
    }
    
