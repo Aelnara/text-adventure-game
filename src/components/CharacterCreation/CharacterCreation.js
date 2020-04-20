@@ -4,6 +4,7 @@ import { GameStageContext } from 'contexts/GameStageContext';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import ButtonContainer from 'components/Layouts/ButtonContainer';
 import CharacterCreationStyles from './CharacterCreationStyles';
 import ClassTypeDisplay from './ClassTypeDisplay';
 import CombatIntroduction from './CombatIntroduction';
@@ -52,7 +53,9 @@ export default function CharacterCreation() {
                <ClassTypeDisplay playerClass={player.classType}/>
             </div>
          </div>
-         <Button onClick={goToScene1} variant="contained" color="primary">Start Game</Button>
+         <ButtonContainer>
+            <Button onClick={goToScene1} variant="contained" color="primary">Start Game</Button>
+         </ButtonContainer>
       </div>
    );
 }

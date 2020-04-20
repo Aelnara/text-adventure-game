@@ -5,13 +5,7 @@ export default makeStyles(theme => ({
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      alignItems: 'center',
-      '& button': {
-         marginTop: '5rem',
-         padding: '0.5rem 2rem',
-         letterSpacing: '2px',
-         fontSize: '1.4rem'
-      }
+      alignItems: 'center'
    },
    container: {
       display: 'flex',
@@ -24,20 +18,18 @@ export default makeStyles(theme => ({
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      '& p': {
-         fontSize: '1.2rem',
-         margin: '0.5rem'
-      },
       '& label': {
-         fontSize: '1.3rem',
+         fontFamily: 'Marck Script',
+         fontSize: '1.7rem',
          fontWeight: '700',
          letterSpacing: '2px',
          padding: '10px'
       },
       '& input': {
+         fontFamily: 'Marck Script',
          textAlign: 'center',
          boxSizing: 'border-box',
-         fontSize: '1.2rem',
+         fontSize: '1.4rem',
          width: '70%',
          padding: '10px 15px',
          border: '2px solid black',
@@ -50,7 +42,8 @@ export default makeStyles(theme => ({
       width: '70%'
    },
    selectRoot: {
-      fontSize: '1.2rem',
+      fontFamily: 'Marck Script',
+      fontSize: '1.4rem',
       padding: '12px 15px',
       backgroundColor: 'white',
       borderRadius: '5px',
@@ -61,7 +54,8 @@ export default makeStyles(theme => ({
       },
    },
    menuItemGutters: {
+      fontFamily: 'Marck Script',
       justifyContent: 'center',
-      fontSize: '1.2rem'
+      fontSize: '1.4rem'
    }
 }))

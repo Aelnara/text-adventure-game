@@ -15,10 +15,17 @@ const useStyles = makeStyles(theme => ({
    statDisplay: {
       display: 'flex',
       justifyContent: 'space-around',
-      alignItems: 'center'
+      alignItems: 'center',
+      '& span': {
+         color: '#d13030'
+      }
    },
    what: {
       textAlign: 'center'
+   },
+   thin: {
+      color: 'black !important',
+      fontWeight: '400'
    }
 }));
 
@@ -72,18 +79,24 @@ export default function PlayerTurn(props) {
       setTurnStage('flee')
    }
    
-   const buttonText = {
+   const abilityText = {
       warrior: {
          attack: 'Mortal Strike',
-         special: 'Raging Blow'
+         attackChance: '(90% Hit Chance)',
+         special: 'Raging Blow',
+         specialChance: '(60% Hit Chance)'
       },
       mage: {
          attack: 'Fireball',
-         special: 'Meteor'
+         attackChance: '(70%)',
+         special: 'Meteor',
+         specialChance: '(40%)'
       },
       rogue: {
          attack: 'Dagger stab',
-         special: 'Kidney stab'
+         attackChance: '(80%)',
+         special: 'Kidney stab',
+         specialChance: '(50%)'
       }
    }
    
@@ -91,11 +104,12 @@ export default function PlayerTurn(props) {
       <>
          <div className={classes.statDisplay}>
             <div>
-               <p>Your Health: {player.currentHealth}</p>
-               <p>Your Attack damage: {player.attack}</p>
+               <p>Your Health: <span>{player.currentHealth}</span></p>
+               <p>{abilityText[player.classType].attack} damage: {player.attack} <span className={classes.thin}>{abilityText[player.classType].attackChance}</span></p>
+               <p>{abilityText[player.classType].special} damage: {player.attack * 2} <span className={classes.thin}>{abilityText[player.classType].specialChance}</span></p>
             </div>
             <div>
-               <p>Enemy Health: {enemy.health}</p>
+               <p>Enemy Health: <span>{enemy.health}</span></p>
                <p>Enemy Attack damage: {enemy.attack}</p>
             </div>
          </div>
@@ -108,8 +122,8 @@ export default function PlayerTurn(props) {
             {statDisplay}
             <p className={classes.what}>What do you do?</p>
             <ButtonContainer>
-               <Button onClick={attack} variant="contained">{buttonText[player.classType].attack}</Button>
-               <Button onClick={special} variant="contained">{buttonText[player.classType].special}</Button>
+               <Button onClick={attack} variant="contained">{abilityText[player.classType].attack}</Button>
+               <Button onClick={special} variant="contained">{abilityText[player.classType].special}</Button>
                <Button onClick={potion} variant="contained">Drink</Button>
                <Button onClick={flee} variant="contained">Flee</Button>
             </ButtonContainer>

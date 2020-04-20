@@ -15,10 +15,17 @@ const useStyles = makeStyles(theme => ({
    statDisplay: {
       display: 'flex',
       justifyContent: 'space-around',
-      alignItems: 'center'
+      alignItems: 'center',
+      '& span': {
+         color: '#d13030'
+      }
    },
    what: {
       textAlign: 'center'
+   },
+   thin: {
+      color: 'black !important',
+      fontWeight: '400'
    }
 }));
 
@@ -72,11 +79,12 @@ export default function EnemyTurn(props) {
       <>
          <div className={classes.statDisplay}>
             <div>
-               <p>Your Health: {player.currentHealth}</p>
-               <p>Your Attack damage: {player.attack}</p>
+               <p>Your Health: <span>{player.currentHealth}</span></p>
+               <p>Counter Attack damage: {player.attack} <span className={classes.thin}>(30% Hit Chance)</span></p>
+               <p>Dodge <span className={classes.thin}>(80% Chance)</span></p>
             </div>
             <div>
-               <p>Enemy Health: {enemy.health}</p>
+               <p>Enemy Health: <span>{enemy.health}</span></p>
                <p>Enemy Attack damage: {enemy.attack}</p>
             </div>
          </div>

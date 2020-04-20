@@ -10,12 +10,17 @@ const useStyles = makeStyles(theme => ({
       justifyContent: 'space-between',
       alignItems: 'center',
       margin: '2rem 0',
+      fontFamily: 'Marck Script',
+      fontSize: '1.5rem',
       '& img': {
          width: '30%'
       },
       '& div': {
          width: '65%',
-         fontSize: '1.2rem'
+         '& p': {
+            fontSize: '1.4rem',
+            margin: '0.5rem'
+         }
       }
    }
 }));

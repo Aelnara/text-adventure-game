@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(theme => ({
    CombatIntroduction: {
       width: '40%',
+      fontFamily: 'Marck Script',
+      fontSize: '1.5rem',
       '& span': {
          fontWeight: '700'
       }
