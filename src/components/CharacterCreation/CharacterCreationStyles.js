@@ -2,11 +2,32 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(theme => ({
    CharacterCreation: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      '& button': {
+         marginTop: '5rem',
+         padding: '0.5rem 2rem',
+         letterSpacing: '2px',
+         fontSize: '1.4rem'
+      }
+   },
+   container: {
+      display: 'flex',
+      justifyContent: 'space-around',
+      alignItems: 'center'
+   },
+   CreationForm: {
       width: '40%',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
+      '& p': {
+         fontSize: '1.2rem',
+         margin: '0.5rem'
+      },
       '& label': {
          fontSize: '1.3rem',
          fontWeight: '700',
@@ -22,14 +43,11 @@ export default makeStyles(theme => ({
          border: '2px solid black',
          borderRadius: '5px',
          outline: 'none'
-      },
-      '& button': {
-         padding: '0.5rem 2rem',
       }
    },
    selectComponent: {
       textAlign: 'center',
-      width: '70%',
+      width: '70%'
    },
    selectRoot: {
       fontSize: '1.2rem',
@@ -44,6 +62,6 @@ export default makeStyles(theme => ({
    },
    menuItemGutters: {
       justifyContent: 'center',
-      fontSize: '1.2rem',
+      fontSize: '1.2rem'
    }
 }))

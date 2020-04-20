@@ -28,14 +28,22 @@ export default function EnemyTurn(props) {
    const { enemy, changeEnemyHealth } = useContext(EnemyContext);
    const [turnStage, setTurnStage] = useState('initial')
    
+   const critDamage = enemy.attack + ((enemy.attack / 10) * 2)
+   
    const counter = () => {
       const chance = Math.floor(Math.random() * 10)
       if(chance < 3){
          changeEnemyHealth(-player.attack)
          setTurnStage('successfulCounter')
       } else {
-         dispatch({ type: "CHANGE_CURRENT_HP", value: -enemy.attack })
-         setTurnStage('unsuccessfulCounter')
+         const critChance = Math.floor(Math.random() * 10)
+         if(critChance < 5){
+            dispatch({ type: "CHANGE_CURRENT_HP", value: -critDamage })
+            setTurnStage('unsuccessfulCounterCrit')
+         } else {
+            dispatch({ type: "CHANGE_CURRENT_HP", value: -enemy.attack })
+            setTurnStage('unsuccessfulCounter')
+         }
       }
    }
    
@@ -44,8 +52,14 @@ export default function EnemyTurn(props) {
       if(chance < 8){
          setTurnStage('successfulDodge')
       } else {
-         dispatch({ type: "CHANGE_CURRENT_HP", value: -enemy.attack })
-         setTurnStage('unsuccessfulDodge')
+         const critChance = Math.floor(Math.random() * 10)
+         if(critChance < 2){
+            dispatch({ type: "CHANGE_CURRENT_HP", value: -critDamage })
+            setTurnStage('unsuccessfulDodgeCrit')
+         } else {
+            dispatch({ type: "CHANGE_CURRENT_HP", value: -enemy.attack })
+            setTurnStage('unsuccessfulDodge')
+         }
       }
    }
    
@@ -96,6 +110,14 @@ export default function EnemyTurn(props) {
                <Button onClick={props.passTurn} variant="contained">Continue</Button>
             </ButtonContainer>
          </>,
+      unsuccessfulCounterCrit:
+         <>
+            <p>Your attempt to counter failed, and you suffer {critDamage} damage! Critical Hit!</p>
+            {statDisplay}
+            <ButtonContainer>
+               <Button onClick={props.passTurn} variant="contained">Continue</Button>
+            </ButtonContainer>
+         </>,
       successfulDodge: 
          <>
             <p>You successfully dodged the attack!</p>
@@ -107,6 +129,14 @@ export default function EnemyTurn(props) {
       unsuccessfulDodge:
          <>
             <p>Your attempt to dodge failed, and you suffer {enemy.attack} damage!</p>
+            {statDisplay}
+            <ButtonContainer>
+               <Button onClick={props.passTurn} variant="contained">Continue</Button>
+            </ButtonContainer>
+         </>,
+      unsuccessfulDodgeCrit:
+         <>
+            <p>Your attempt to dodge failed, and you suffer {critDamage} damage! Critical Hit!</p>
             {statDisplay}
             <ButtonContainer>
                <Button onClick={props.passTurn} variant="contained">Continue</Button>

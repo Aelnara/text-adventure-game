@@ -4,7 +4,6 @@ import warrior from 'assets/images/classes/warrior.png';
 import mage from 'assets/images/classes/mage.png';
 import rogue from 'assets/images/classes/rogue.png';
 
-
 const useStyles = makeStyles(theme => ({
    ClassTypeDisplay: {
       display: 'flex',
@@ -16,7 +15,6 @@ const useStyles = makeStyles(theme => ({
       },
       '& div': {
          width: '65%',
-         textAlign: 'center',
          fontSize: '1.2rem'
       }
    }
@@ -28,9 +26,24 @@ export default function ClassTypeDisplay(props) {
    
       
    const classTypeText = {
-      warrior: 'Warriors generally have higher health than others. They have lower attack damage but their hit chance is high.',
-      mage: 'Mages have low health but their damage output is high at the cost of successful hit chance.',
-      rogue: 'Rogues are well rounded. They have a decent health pool, damage and hit chance.'
+      warrior: 
+         <>
+            <p>Warriors generally have higher health than others. They have lower attack damage but their hit chance is high.</p>
+            <p>Basic Attack Hit Chance: 90%</p>
+            <p>Special Attack Hit Chance: 60%</p>
+         </>,
+      mage: 
+         <>
+            <p>Mages have low health but their damage output is high at the cost of successful hit chance.</p>
+            <p>Basic Attack Hit Chance: 70%</p>
+            <p>Special Attack Hit Chance: 40%</p>
+         </>,
+      rogue: 
+         <>
+            <p>Rogues are well rounded. They have a decent health pool, damage and hit chance.</p>
+            <p>Basic Attack Hit Chance: 80%</p>
+            <p>Special Attack Hit Chance: 50%</p>
+         </>,
    };
    
    const classTypeImg = {
@@ -46,7 +59,7 @@ export default function ClassTypeDisplay(props) {
       <div className={classes.ClassTypeDisplay}>
          <img src={classTypeImgDisplay} alt={playerClass}/>
          <div>
-            <p>{classTypeTextDisplay}</p>
+            {classTypeTextDisplay}
          </div>
       </div>
    );

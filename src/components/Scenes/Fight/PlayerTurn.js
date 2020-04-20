@@ -35,7 +35,6 @@ export default function PlayerTurn(props) {
       const chance = Math.floor(Math.random() * 10)
       if(chance < player.attackHitChance){
          const critChance = Math.floor(Math.random() * 10)
-         console.log(critChance)
          if(critChance < 3){
             changeEnemyHealth(-critDamage)
             setTurnStage('successfulCritHit')

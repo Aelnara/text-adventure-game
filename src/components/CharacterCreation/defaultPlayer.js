@@ -1,5 +1,5 @@
 export const defaultPlayer = {
-   name: '',
+   name: 'Player',
    classType: 'warrior',
    currentHealth: 300,
    maxHealth: 300,

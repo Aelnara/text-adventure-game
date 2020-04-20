@@ -1,0 +1,39 @@
+.enemy-enter {
+   opacity: 0;
+   transform: translateX(100%);
+}
+.enemy-enter-active {
+   opacity: 1;
+   transform: translateX(0);
+   transition: 300ms;
+}
+.enemy-exit {
+   opacity: 1;
+   transform: translateX(0);
+}
+.enemy-exit-active {
+   opacity: 0;
+   transform: translateX(100%);
+   transition: 300ms;
+}
+
+
+
+.papyrus-popup-enter {
+   opacity: 0;
+   transform: scale(0);
+}
+.papyrus-popup-enter-active {
+   opacity: 1;
+   transform: scale(1);
+   transition: 200ms;
+}
+.papyrus-popup-exit {
+   opacity: 1;
+   transform: scale(1);
+}
+.papyrus-popup-exit-active {
+   opacity: 0;
+   transform: scale(0);
+   transition: 200ms;
+}

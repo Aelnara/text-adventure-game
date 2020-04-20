@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import { GameStageContext } from 'contexts/GameStageContext';
 import { PlayerContext } from 'contexts/PlayerContext';
 import Paper from '@material-ui/core/Paper';
@@ -19,6 +20,7 @@ import Scene10 from 'components/Scenes/Scene10/Scene10';
 import Outro from 'components/Scenes/Outro';
 import LevelUp from 'components/Scenes/LevelUp';
 import Dead from 'components/Scenes/Dead';
+import 'Transitions.css';
 
 const stage = {
   intro: <Intro />,
@@ -46,8 +48,12 @@ export default function Game() {
       <div className={classes.Game}>
          <Paper className={classes.Paper} elevation={3} style={{width: '1400px', height: '900px'}}>
             {stageDisplay}
-            {player.leveledUp && <LevelUp />}
-            {player.dead && <Dead />}
+            <CSSTransition in={player.leveledUp} timeout={400} mountOnEnter unmountOnExit classNames="papyrus-popup">
+               <LevelUp />
+            </CSSTransition>
+            <CSSTransition in={player.dead} timeout={400} mountOnEnter unmountOnExit classNames="papyrus-popup">
+               <Dead />
+            </CSSTransition>
          </Paper>
       </div>
    );

@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { CSSTransition } from 'react-transition-group';
 import { GameStageContext } from 'contexts/GameStageContext';
 import { PlayerContext } from 'contexts/PlayerContext';
 import AppBar from 'components/AppBar/AppBar';
@@ -61,7 +62,9 @@ export default function Scene2() {
       <div className={classes.Scene2}>
          <AppBar />
          <Background img={backgroundImg} />
-         {displayEnemy && <Enemy enemyImage={stranger} />}
+         <CSSTransition in={displayEnemy} timeout={600} mountOnEnter unmountOnExit classNames="enemy">
+            <Enemy enemyImage={stranger} />
+         </CSSTransition>
          <TextContainer>
             <h2>Scene 2:</h2>
             {sceneStageDisplay}

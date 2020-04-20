@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { CSSTransition } from 'react-transition-group';
 import { GameStageContext } from 'contexts/GameStageContext';
 import { PlayerContext } from 'contexts/PlayerContext';
 import { EnemyContext } from 'contexts/EnemyContext';
@@ -53,7 +54,6 @@ export default function Scene3() {
    
    const searchCampFight = () => {
       initializeEnemy(250, 50, 200)
-      setDisplaySecondBandit(true)
       setSceneStage('searchCampFight')
    }
    
@@ -72,6 +72,7 @@ export default function Scene3() {
    }
    
    const searchCampAmbush = () => {
+      setDisplaySecondBandit(true)
       setSceneStage('searchCampAmbush')
    }
    
@@ -93,8 +94,12 @@ export default function Scene3() {
       <div className={classes.Scene3}>
          <AppBar />
          <Background img={backgroundImg} />
-         {displayFirstBandit && <Enemy enemyImage={bandit1} />}
-         {displaySecondBandit && <Enemy enemyImage={bandit4} />}
+         <CSSTransition in={displayFirstBandit} timeout={600} mountOnEnter unmountOnExit classNames="enemy">
+            <Enemy enemyImage={bandit1} />
+         </CSSTransition>
+         <CSSTransition in={displaySecondBandit} timeout={600} mountOnEnter unmountOnExit classNames="enemy">
+            <Enemy enemyImage={bandit4} />
+         </CSSTransition>
          <TextContainer>
             <h2>Scene 3:</h2>
             {sceneStageDisplay}
