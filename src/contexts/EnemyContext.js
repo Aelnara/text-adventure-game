@@ -20,6 +20,9 @@ export function EnemyProvider(props) {
    const changeEnemyHealth = value => setEnemy(oldState => {
       const enemy = {...oldState};
       enemy.health += value;
+      if(enemy.health < 1){
+         enemy.health = 0
+      }
       return enemy
    });
    

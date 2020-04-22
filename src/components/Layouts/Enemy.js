@@ -6,6 +6,7 @@ const useStyles = makeStyles(theme => ({
       width: '50%',
       height: '400px',
       position: 'absolute',
+      zIndex: '15',
       bottom: '40%',
       right: '10px'
    }

@@ -6,12 +6,21 @@ import PlayerTurn from 'components/Scenes/Fight/PlayerTurn';
 import Button from '@material-ui/core/Button';
 import ButtonContainer from 'components/Layouts/ButtonContainer';
 
-export default function Fight(props) {
+
+export default function FightWolf(props) {
    const { player, dispatch } = useContext(PlayerContext);
-   const { enemy } = useContext(EnemyContext);
+   const { enemy, changeEnemyHealth } = useContext(EnemyContext);
    const [playerTurn, setTurn] = useState(false)
+   const [wolfHowl, setWolfHowl] = useState(false)
    
    const passTurn = () => {
+      setTurn(!playerTurn)
+   }
+   
+   const howlPassTurn = () => {
+      props.displayWolfPackToggle()
+      changeEnemyHealth(400)
+      setWolfHowl(true)
       setTurn(!playerTurn)
    }
    
@@ -28,7 +37,19 @@ export default function Fight(props) {
       }
    } else {
       if(enemy.health > 0) {
-         return <EnemyTurn passTurn={passTurn} />
+         if(enemy.health < 150 & !wolfHowl){
+            return (
+               <>
+                  <p>The wolf howled at the moon and a pack of wolves appeared around you!</p>
+                  <p>This is not looking good...</p>
+                  <ButtonContainer>
+                     <Button onClick={howlPassTurn} variant="contained">Continue</Button>
+                  </ButtonContainer>
+               </>
+            )
+         } else {
+            return <EnemyTurn passTurn={passTurn} />
+         }
       } else {
          return (
             <>

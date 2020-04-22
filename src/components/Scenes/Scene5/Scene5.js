@@ -6,11 +6,13 @@ import { PlayerContext } from 'contexts/PlayerContext';
 import { EnemyContext } from 'contexts/EnemyContext';
 import AppBar from 'components/AppBar/AppBar';
 import Fight from 'components/Scenes/Fight/Fight';
+import FightWolf from 'components/Scenes/FightWolf/FightWolf';
 import TextContainer from 'components/Layouts/TextContainer';
 import Background from 'components/Layouts/Background';
 import Enemy from 'components/Layouts/Enemy';
 import backgroundImg from 'assets/images/environment/environment-forest-1.png';
 import wolf from 'assets/images/enemies/enemy-wolf-1.png';
+import wolfpack from 'assets/images/enemies/enemy-wolf-pack-1.png';
 import boar from 'assets/images/enemies/enemy-boar-1.png';
 import StageInitial from './StageInitial';
 import StageMagePlayer from './StageMagePlayer';
@@ -27,6 +29,15 @@ const useStyles = makeStyles(theme => ({
       height: '100%',
       position: 'relative',
       background: 'linear-gradient(180deg, rgba(46,46,108,1) 0%, rgba(62,62,135,1) 30%, rgba(162,162,228,1) 100%)'
+   },
+   pack: {
+      background: `right / contain no-repeat url(${wolfpack})`,
+      width: '80%',
+      height: '400px',
+      position: 'absolute',
+      zIndex: '10',
+      bottom: '40%',
+      left: '10px'
    }
 }));
 
@@ -38,6 +49,7 @@ export default function Scene5() {
    const [sceneStage, setSceneStage] = useState('initial')
    const [isDisturbed, setIsDisturbed] = useState(false)
    const [displayWolf, setDisplayWolf] = useState(false)
+   const [displayWolfPack, setDisplayWolfPack] = useState(false)
    const [displayBoar, setDisplayBoar] = useState(false)
    
    const goToScene6 = () => {
@@ -53,13 +65,18 @@ export default function Scene5() {
    }
    
    const fight = () => {
-      initializeEnemy(400, 70, 500)
+      initializeEnemy(300, 70, 400)
       setDisplayWolf(true)
       setSceneStage('fight')
    }
    
+   const displayWolfPackToggle = () => {
+      setDisplayWolfPack(true)
+   }
+   
    const fightWon = () => {
       setDisplayWolf(false)
+      setDisplayWolfPack(false)
       setSceneStage('fightWon')
    }
    
@@ -104,7 +121,7 @@ export default function Scene5() {
       magePlayer: <StageMagePlayer choiceCalm={choiceCalm} fight={fight} />,
       successfulCalm: <StageSuccessfulCalm fightWon={fightWon} />,
       unsuccessfulCalm: <StageUnsuccessfulCalm fight={fight} />,
-      fight: <Fight fightWon={fightWon} />,
+      fight: <FightWolf fightWon={fightWon} displayWolfPackToggle={displayWolfPackToggle} />,
       fightWon: <StageFightWon choiceRest={choiceRest} choiceMoveOn={choiceMoveOn} />,
       rest: <StageRest disturbed={isDisturbed} goToScene6={goToScene6} boarFight={boarFight} />,
       moveOn: <StageMoveOn goToScene6={goToScene6} />,
@@ -120,6 +137,9 @@ export default function Scene5() {
          <Background img={backgroundImg} />
          <CSSTransition in={displayWolf} timeout={600} mountOnEnter unmountOnExit classNames="enemy">
             <Enemy enemyImage={wolf} />
+         </CSSTransition>
+         <CSSTransition in={displayWolfPack} timeout={600} mountOnEnter unmountOnExit classNames="enemy">
+            <div className={classes.pack} />
          </CSSTransition>
          <CSSTransition in={displayBoar} timeout={600} mountOnEnter unmountOnExit classNames="enemy">
             <Enemy enemyImage={boar} />
