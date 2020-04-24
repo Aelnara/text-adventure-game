@@ -32,7 +32,7 @@ export default function CharacterCreation() {
             <CombatIntroduction />
             <div className={classes.CreationForm}>
                <label htmlFor="name">Character name:</label>
-               <input id="name" type="text" autoComplete="off" value={player.name} maxLength="15" onChange={handleNameChange}/>
+               <input id="name" type="text" autoComplete="off" value={player.name} maxLength="12" onChange={handleNameChange}/>
                
                <label htmlFor="showType">Class:</label>
                <Select 

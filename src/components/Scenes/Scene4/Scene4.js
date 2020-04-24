@@ -37,6 +37,11 @@ export default function Scene4() {
       changeGameStage('hint1')
    }
    
+   const resetScene = () => {
+      setSceneStage('initial')
+      setDisplayEnemy(false)
+   }
+   
    const fight = () => {
       initializeEnemy(350, 60, 300)
       setDisplayEnemy(true)
@@ -72,7 +77,7 @@ export default function Scene4() {
    
    return (
       <div className={classes.Scene4}>
-         <AppBar />
+         <AppBar sceneStage={sceneStage} resetScene={resetScene} />
          <Background img={backgroundImg} />
          <CSSTransition in={displayEnemy} timeout={600} mountOnEnter unmountOnExit classNames="enemy">
             <Enemy enemyImage={stranger} />

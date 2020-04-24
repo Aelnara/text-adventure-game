@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { CSSTransition } from 'react-transition-group';
 import { GameStageContext } from 'contexts/GameStageContext';
 import { PlayerContext } from 'contexts/PlayerContext';
-import Button from '@material-ui/core/Button';
 import AppBar from 'components/AppBar/AppBar';
+import Button from '@material-ui/core/Button';
 import TextContainer from 'components/Layouts/TextContainer';
 import ButtonContainer from 'components/Layouts/ButtonContainer';
 import Background from 'components/Layouts/Background';
@@ -49,6 +49,11 @@ export default function Scene8() {
    
    const goToScene9 = () => {
       changeGameStage('scene9')
+   }
+   
+   const resetScene = () => {
+      setSceneStage('initial')
+      setDisplayEnemy(true)
    }
    
    const choiceRiddle = () => {
@@ -100,7 +105,7 @@ export default function Scene8() {
    
    return (
       <div className={classes.Scene8}>
-         <AppBar />
+         <AppBar sceneStage={sceneStage} resetScene={resetScene} />
          <Background img={backgroundImg} />
          <CSSTransition in={displayEnemy} timeout={600} mountOnEnter unmountOnExit classNames="enemy">
             <Enemy enemyImage={monk} />

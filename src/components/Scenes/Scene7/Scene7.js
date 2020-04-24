@@ -45,6 +45,12 @@ export default function Scene7() {
       changeGameStage('scene8')
    }
    
+   const resetScene = () => {
+      setSceneStage('initial')
+      setDisplaySoldiers(false)
+      setDisplayHunter(false)
+   }
+   
    const leftInterveneFight = () => {
       initializeEnemy(450, 90, 400)
       setSceneStage('leftInterveneFight')
@@ -119,7 +125,7 @@ export default function Scene7() {
    
    return (
       <div className={classes.Scene7}>
-         <AppBar />
+         <AppBar sceneStage={sceneStage} resetScene={resetScene} />
          <Background img={backgroundImg} />
          <CSSTransition in={displaySoldiers} timeout={600} mountOnEnter unmountOnExit classNames="enemy">
             <Enemy enemyImage={soldiers} />

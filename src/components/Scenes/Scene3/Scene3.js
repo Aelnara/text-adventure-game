@@ -40,6 +40,12 @@ export default function Scene3() {
    const goToScene4 = () => {
       changeGameStage('scene4')
    }
+   
+   const resetScene = () => {
+      setSceneStage('initial')
+      setDisplayFirstBandit(false)
+      setDisplaySecondBandit(false)
+   }
 
    const fight = () => {
       initializeEnemy(300, 60, 300)
@@ -92,7 +98,7 @@ export default function Scene3() {
    
    return (
       <div className={classes.Scene3}>
-         <AppBar />
+         <AppBar sceneStage={sceneStage} resetScene={resetScene} />
          <Background img={backgroundImg} />
          <CSSTransition in={displayFirstBandit} timeout={600} mountOnEnter unmountOnExit classNames="enemy">
             <Enemy enemyImage={bandit1} />

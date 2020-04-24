@@ -4,8 +4,8 @@ import { CSSTransition } from 'react-transition-group';
 import { GameStageContext } from 'contexts/GameStageContext';
 import { PlayerContext } from 'contexts/PlayerContext';
 import { EnemyContext } from 'contexts/EnemyContext';
-import Button from '@material-ui/core/Button';
 import AppBar from 'components/AppBar/AppBar';
+import Button from '@material-ui/core/Button';
 import Fight from 'components/Scenes/Fight/Fight';
 import TextContainer from 'components/Layouts/TextContainer';
 import ButtonContainer from 'components/Layouts/ButtonContainer';
@@ -57,6 +57,11 @@ export default function Scene10() {
    
    const goToOutro = () => {
       changeGameStage('outro')
+   }
+   
+   const resetScene = () => {
+      setSceneStage('initial')
+      setDisplayEnemy(false)
    }
    
    const codeGuess = (evt) => {
@@ -134,7 +139,7 @@ export default function Scene10() {
    
    return (
       <div className={classes.Scene10}>
-         <AppBar />
+         <AppBar sceneStage={sceneStage} resetScene={resetScene} />
          <Background img={backgroundImg} />
          <CSSTransition in={displayEnemy} timeout={600} mountOnEnter unmountOnExit classNames="enemy">
             <Enemy enemyImage={golem} />

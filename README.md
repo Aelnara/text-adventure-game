@@ -14,7 +14,6 @@ It is not optimized for smaller screen sizes and currently not planning it eithe
 
 
 Here are some ideas that i plan to implement in the future:
-- a simple Save/Load system with the use of LocalStorage
 - balancing things (XP gain, enemy health)
 - extending the story and give it a proper ending (it ends way to quickly in a fairly unsatisfying way)
 - making more in-depth choices

@@ -14,10 +14,7 @@ const useStyles = makeStyles(theme => ({
       width: '100%',
       height: '100%',
       position: 'relative',
-      background: 'linear-gradient(180deg, rgba(80,80,195,1) 0%, rgba(115,115,219,1) 25%, rgba(162,162,228,1) 100%)',
-      '& button': {
-         padding: '0.5rem 2rem',
-      }
+      background: 'linear-gradient(180deg, rgba(80,80,195,1) 0%, rgba(115,115,219,1) 25%, rgba(162,162,228,1) 100%)'
    },
 }));
 

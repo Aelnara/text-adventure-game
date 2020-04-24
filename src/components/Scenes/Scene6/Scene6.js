@@ -41,6 +41,11 @@ export default function Scene6() {
       changeGameStage('scene7')
    }
    
+   const resetScene = () => {
+      setSceneStage('initial')
+      setDisplayEnemy(false)
+   }
+   
    const ruinsFight = () => {
       initializeEnemy(400, 110, 400)
       setSceneStage('fight')
@@ -98,7 +103,7 @@ export default function Scene6() {
    
    return (
       <div className={classes.Scene6}>
-         <AppBar />
+         <AppBar sceneStage={sceneStage} resetScene={resetScene} />
          <Background img={backgroundImg} />
          <CSSTransition in={displayEnemy} timeout={600} mountOnEnter unmountOnExit classNames="enemy">
             <Enemy enemyImage={giant} />

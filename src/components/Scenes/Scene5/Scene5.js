@@ -56,6 +56,13 @@ export default function Scene5() {
       changeGameStage('scene6')
    }
    
+   const resetScene = () => {
+      setSceneStage('initial')
+      setDisplayWolf(false)
+      setDisplayWolfPack(false)
+      setDisplayBoar(false)
+   }
+   
    const proceed = () => {
       if(player.classType === 'mage'){
          setSceneStage('magePlayer')
@@ -133,7 +140,7 @@ export default function Scene5() {
    
    return (
       <div className={classes.Scene5}>
-         <AppBar />
+         <AppBar sceneStage={sceneStage} resetScene={resetScene} />
          <Background img={backgroundImg} />
          <CSSTransition in={displayWolf} timeout={600} mountOnEnter unmountOnExit classNames="enemy">
             <Enemy enemyImage={wolf} />

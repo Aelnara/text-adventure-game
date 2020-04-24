@@ -27,7 +27,7 @@ export default function Scene4() {
    
    return (
       <div className={classes.Hint1}>
-         <AppBar />
+         <AppBar sceneStage='initial' />
          <Background img={backgroundImg} />
          <TextContainer>
             <h2>Afterwards:</h2>

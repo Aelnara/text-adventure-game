@@ -33,6 +33,11 @@ export default function Scene2() {
       changeGameStage('scene3')
    }
    
+   const resetScene = () => {
+      setSceneStage('initial')
+      setDisplayEnemy(true)
+   }
+   
    const choiceHelp = () => {
       setSceneStage('help')
       dispatch({ type: "CHANGE_POTION", value: 1 })
@@ -60,7 +65,7 @@ export default function Scene2() {
    
    return (
       <div className={classes.Scene2}>
-         <AppBar />
+         <AppBar sceneStage={sceneStage} resetScene={resetScene} />
          <Background img={backgroundImg} />
          <CSSTransition in={displayEnemy} timeout={600} mountOnEnter unmountOnExit classNames="enemy">
             <Enemy enemyImage={stranger} />

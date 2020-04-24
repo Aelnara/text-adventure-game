@@ -40,6 +40,11 @@ export default function Scene9() {
       changeGameStage('scene10')
    }
    
+   const resetScene = () => {
+      setSceneStage('initial')
+      setDisplayEnemy(true)
+   }
+   
    const soldiersFight = () => {
       initializeEnemy(600, 150, 600)
       setSceneStage('soldiersFight')
@@ -98,7 +103,7 @@ export default function Scene9() {
    
    return (
       <div className={classes.Scene9}>
-         <AppBar />
+         <AppBar sceneStage={sceneStage} resetScene={resetScene} />
          <Background img={backgroundImg} />
          <CSSTransition in={displayEnemy} timeout={600} mountOnEnter unmountOnExit classNames="enemy">
             <Enemy enemyImage={soldiers} />

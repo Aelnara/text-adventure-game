@@ -55,6 +55,8 @@ const reducer = (state, action) => {
          return {...state, scene7fight: true}
       case "RESET_PLAYER":
          return defaultPlayer
+      case "LOAD_PLAYER":
+         return action.loadedPlayer
       default:
          return state
    }
