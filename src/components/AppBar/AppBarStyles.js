@@ -8,7 +8,7 @@ export default makeStyles(theme => ({
       alignItems: 'center',
       justifyContent: 'space-between',
       padding: '0 2rem',
-      borderBottom: '3px solid black',
+      // borderBottom: '3px solid black',
       boxShadow: '0px 1px 5px 0px rgba(0,0,0,0.75)',
       boxSizing: 'border-box',
       position: 'absolute',

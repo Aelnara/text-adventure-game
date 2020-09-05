@@ -17,7 +17,7 @@ export default makeStyles(theme => ({
       justifyContent: 'center',
       position: 'relative',
       overflow: 'hidden',
-      border: '4px solid black',
+      // border: '4px solid black',
       backgroundColor: 'rgb(218, 192, 152)'
    }
 }))
