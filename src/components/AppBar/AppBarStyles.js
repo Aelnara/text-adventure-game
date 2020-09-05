@@ -19,11 +19,29 @@ export default makeStyles(theme => ({
       '& h1': {
          fontSize: '1.5rem',
          fontWeight: '400',
-         padding: '0 1rem'
+         padding: '0 1rem',
+         margin: '0'
       }
    },
-   classIcon: {
-      height: '30px'
+   player: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      '& h1': {
+         margin: 0
+      },
+      '& img': {
+         height: '30px'
+      }
+   },
+   healthBar: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      '& img': {
+         height: '30px',
+         paddingRight: '1rem'
+      }
    },
    potion: {
       display: 'flex',
@@ -33,7 +51,8 @@ export default makeStyles(theme => ({
          height: '30px'
       },
       '& h1': {
-         padding: '0'
+         padding: '0',
+         margin: '0'
       }
    },
    buttonContainer: {

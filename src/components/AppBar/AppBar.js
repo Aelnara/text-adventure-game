@@ -4,10 +4,11 @@ import { GameStageContext } from 'contexts/GameStageContext';
 import Button from '@material-ui/core/Button';
 import HealthBar from 'components/HealthBar/HealthBar';
 import AppBarStyles from './AppBarStyles';
-import potion from 'assets/images/health-potion.png';
+import potion from 'assets/icons/health-potion.png';
 import warrior from 'assets/images/classes/warrior.png';
 import mage from 'assets/images/classes/mage.png';
 import rogue from 'assets/images/classes/rogue.png';
+import heart from 'assets/icons/heart.svg';
 
 export default function AppBar(props) {
    const classes = AppBarStyles();
@@ -49,9 +50,14 @@ export default function AppBar(props) {
    
    return (
       <div className={classes.AppBar}>
-         <img className={classes.classIcon} src={classIconSrc} alt="classIcon"/>
-         <h1>{playerNameDisplay}</h1>
-         <HealthBar />
+         <div className={classes.player}>
+            <img src={classIconSrc} alt="class"/>
+            <h1>{playerNameDisplay}</h1>
+         </div>
+         <div className={classes.healthBar}>
+            <img src={heart} alt='health'/>
+            <HealthBar />
+         </div>
          <h1>{playerLevelDisplay}</h1>
          <h1>{playerXPDisplay}</h1>
          <div className={classes.potion}>

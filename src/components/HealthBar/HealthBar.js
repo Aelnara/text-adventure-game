@@ -7,7 +7,7 @@ const useStyles = makeStyles(theme => ({
    healthContainer: {
       width: '300px',
       height: '30px',
-      border: '4px solid #6b280c',
+      border: '2px solid #420000',
       borderRadius: '5px',
       position: 'relative',
       // boxSizing: 'border-box',
@@ -17,6 +17,7 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: '#dedbd5',
       overflow: 'hidden',
       '& h4': {
+         color: '#420000',
          margin: 'auto',
          position: 'absolute',
       }
